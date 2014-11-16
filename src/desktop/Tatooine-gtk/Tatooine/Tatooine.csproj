@@ -64,10 +64,14 @@
     <Compile Include="Library\JSONParsing.cs" />
     <Compile Include="Library\Storage\PasswordStorageAbstract.cs" />
     <Compile Include="Library\Storage\PasswordTextStorage.cs" />
+    <Compile Include="Library\Archive\PasswordArchive.cs" />
+    <Compile Include="ArchiveWindow.cs" />
+    <Compile Include="gtk-gui\Tatooine.ArchiveWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Library\" />
     <Folder Include="Library\Storage\" />
+    <Folder Include="Library\Archive\" />
   </ItemGroup>
 </Project>

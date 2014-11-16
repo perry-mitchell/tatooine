@@ -3,6 +3,18 @@
 
 public partial class MainWindow
 {
+	private global::Gtk.Frame frame1;
+	
+	private global::Gtk.Fixed fixed1;
+	
+	private global::Gtk.Label GtkLabel;
+	
+	private global::Gtk.Label label1;
+	
+	private global::Gtk.Entry entry1;
+	
+	private global::Gtk.Button button1;
+
 	protected virtual void Build ()
 	{
 		global::Stetic.Gui.Initialize (this);
@@ -10,11 +22,59 @@ public partial class MainWindow
 		this.Name = "MainWindow";
 		this.Title = global::Mono.Unix.Catalog.GetString ("MainWindow");
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
+		// Container child MainWindow.Gtk.Container+ContainerChild
+		this.frame1 = new global::Gtk.Frame ();
+		this.frame1.Name = "frame1";
+		this.frame1.ShadowType = ((global::Gtk.ShadowType)(0));
+		// Container child frame1.Gtk.Container+ContainerChild
+		this.fixed1 = new global::Gtk.Fixed ();
+		this.fixed1.Name = "fixed1";
+		this.fixed1.HasWindow = false;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.GtkLabel = new global::Gtk.Label ();
+		this.GtkLabel.Name = "GtkLabel";
+		this.GtkLabel.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>Load from file</b>");
+		this.GtkLabel.UseMarkup = true;
+		this.fixed1.Add (this.GtkLabel);
+		global::Gtk.Fixed.FixedChild w1 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.GtkLabel]));
+		w1.X = 10;
+		w1.Y = 2;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.label1 = new global::Gtk.Label ();
+		this.label1.Name = "label1";
+		this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("From file:");
+		this.fixed1.Add (this.label1);
+		global::Gtk.Fixed.FixedChild w2 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.label1]));
+		w2.X = 44;
+		w2.Y = 29;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.entry1 = new global::Gtk.Entry ();
+		this.entry1.WidthRequest = 350;
+		this.entry1.CanFocus = true;
+		this.entry1.Name = "entry1";
+		this.entry1.IsEditable = true;
+		this.entry1.InvisibleChar = '●';
+		this.fixed1.Add (this.entry1);
+		global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.entry1]));
+		w3.X = 108;
+		w3.Y = 21;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.button1 = new global::Gtk.Button ();
+		this.button1.CanFocus = true;
+		this.button1.Name = "button1";
+		this.button1.UseUnderline = true;
+		this.button1.Label = global::Mono.Unix.Catalog.GetString ("Open");
+		this.fixed1.Add (this.button1);
+		global::Gtk.Fixed.FixedChild w4 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.button1]));
+		w4.X = 329;
+		w4.Y = 56;
+		this.frame1.Add (this.fixed1);
+		this.Add (this.frame1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 400;
-		this.DefaultHeight = 300;
+		this.DefaultWidth = 541;
+		this.DefaultHeight = 295;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 	}
