@@ -1,0 +1,6 @@
+/Users/pez/Git/tatooine/src/desktop/Tatooine-gtk/Tatooine/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/Users/pez/Git/tatooine/src/desktop/Tatooine-gtk/Tatooine/obj/x86/Debug/Tatooine.gtk-gui.gui.stetic
+/Users/pez/Git/tatooine/src/desktop/Tatooine-gtk/Tatooine/bin/Debug/Tatooine.exe.mdb
+/Users/pez/Git/tatooine/src/desktop/Tatooine-gtk/Tatooine/bin/Debug/Tatooine.exe
+/Users/pez/Git/tatooine/src/desktop/Tatooine-gtk/Tatooine/obj/x86/Debug/Tatooine.exe
+/Users/pez/Git/tatooine/src/desktop/Tatooine-gtk/Tatooine/obj/x86/Debug/Tatooine.exe.mdb
