@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Build script for CLI application
+
+# Current path
+CWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Run other build
+bash $CWD/../common/build
+
+# Copy DLL
+cp $CWD/../common/Tatooine.common.dll $CWD/
+
+# Delete if exists
+if [ -f "$CWD/tatooine.o" ]; then
+	rm "$CWD/tatooine.o"
+fi
+if [ -f "$CWD/tatooine" ]; then
+	rm "$CWD/tatooine"
+fi
+
+# Compile
+dmcs -r:$CWD/Tatooine.common.dll -out:"tatooine.o" "$CWD/*.cs"
+
+# Rename
+mv $CWD/tatooine.o $CWD/tatooine
