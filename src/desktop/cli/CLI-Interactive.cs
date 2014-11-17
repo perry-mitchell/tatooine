@@ -2,6 +2,7 @@ using System;
 using System.Security;
 using System.IO;
 using Tatooine;
+using Tatooine.IO;
 using Tatooine.Utilities;
 using System.Collections.Generic;
 
@@ -21,6 +22,13 @@ namespace Tatooine.CLI {
 			} else {
 				startNew();
 			}
+		}
+
+		private string getFilename() {
+			Console.Write("Filename: ");
+			string filename = Console.ReadLine();
+            Console.WriteLine("");
+            return filename;
 		}
 
 		private SecureString getPassword() {
@@ -83,7 +91,21 @@ namespace Tatooine.CLI {
 				if (!passwordHasBeenSet()) {
 					currentPassword = getPassword();
 				}
-
+				if (archiveFilename.Length <= 0) {
+					archiveFilename = getFilename();
+				}
+				if (archiveFilename.Length <= 0) {
+					Console.WriteLine("You must enter a filename to save: Archive NOT saved.");
+				} else {
+					PasswordEncryptedStorage pea = new PasswordEncryptedStorage(archiveFilename, currentPassword);
+					bool wrote = archive.writeToStorage(pea);
+					if (wrote) {
+						Console.WriteLine("Saved.");
+					} else {
+						Console.WriteLine("Archive was not saved to file.");
+						archiveFilename = "";
+					}
+				}
 			} else if (major.Equals("exit") || major.Equals("quit")) {
 				return;
 			} else {
@@ -104,12 +126,17 @@ namespace Tatooine.CLI {
 		protected void start() {
 			currentPassword = getPassword();
 			try {
-				archive = PasswordArchive.createFromFileUsingPlainText(archiveFilename);
+				archive = PasswordArchive.createFromFileUsingPassword(archiveFilename, currentPassword);
 			} catch (IOException ie) {
-				Console.WriteLine("Failed loading file: ", archiveFilename);
+				Console.WriteLine("Failed loading file: {0}", archiveFilename);
+				return;
+			} catch (Exception e) {
+				Console.WriteLine("Failed opening archive: ({0})", e.Message);
+				return;
 			}
 			if (archive != null) {
 				Console.WriteLine("Loaded: " + archive.getArchiveTitle());
+				runMenu();
 			} else {
 				throw new Exception("Failed opening archive: " + archiveFilename);
 			}

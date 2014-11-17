@@ -17,17 +17,18 @@ namespace Tatooine {
 		}
 
 		public static PasswordArchive createFromFileStorage(PasswordStorageAbstract storage) {
-			Hashtable data = storage.readArchiveData ();
-			return new PasswordArchive (data);
+			Hashtable data = storage.readArchiveData();
+			return new PasswordArchive(data);
 		}
 
 		public static PasswordArchive createFromFileUsingPlainText(string filename) {
-			PasswordTextStorage textStorage = new PasswordTextStorage (filename);
-			return createFromFileStorage (textStorage);
+			PasswordTextStorage textStorage = new PasswordTextStorage(filename);
+			return createFromFileStorage(textStorage);
 		}
 
 		public static PasswordArchive createFromFileUsingPassword(string filename, SecureString password) {
-			return createFromFileUsingPlainText(filename);
+			PasswordEncryptedStorage encryptedStorage = new PasswordEncryptedStorage(filename, password);
+			return createFromFileStorage(encryptedStorage);
 		}
 
 		public static PasswordArchive createNew() {
@@ -52,6 +53,17 @@ namespace Tatooine {
 
 		public void setArchiveTitle(string title) {
 			_archive["title"] = title;
+		}
+
+		public bool writeToStorage(PasswordStorageAbstract storage) {
+			bool wrote = false;
+			try {
+				storage.saveArchiveData(_archive);
+				wrote = true;
+			} catch (Exception e)  {
+				Console.WriteLine("Failed saving archive data to file: {0}", e);
+			}
+			return wrote;
 		}
 
 	}
