@@ -11,7 +11,7 @@ namespace Tatooine.CLI {
 			if (args.Length > 0) {
 				Interactive i = new Interactive(args[0]);
 			} else {
-				throw new Exception("Invalid arguments: A password archive file is required");
+				Interactive i = new Interactive();
 			}
 		}
 

@@ -7,7 +7,8 @@ namespace Tatooine {
 
 	public class PasswordArchive {
 
-		public const string SUPPORTED_ARCHIVE_FORMAT = "Tatooine-archive-A";
+		public const int		PASSWORD_MIN_LENGTH =			8;
+		public const string 	SUPPORTED_ARCHIVE_FORMAT = 		"Tatooine-archive-A";
 
 		protected Hashtable _archive;
 
@@ -29,6 +30,10 @@ namespace Tatooine {
 			return createFromFileUsingPlainText(filename);
 		}
 
+		public static PasswordArchive createNew() {
+			return new PasswordArchive(new Hashtable());
+		}
+
 		public string getArchiveFormat() {
 			return (_archive.ContainsKey("format")) ? (string)_archive["format"] : "";
 		}
@@ -39,6 +44,14 @@ namespace Tatooine {
 
 		public bool isSupported() {
 			return getArchiveFormat().Equals(SUPPORTED_ARCHIVE_FORMAT);
+		}
+
+		public void setArchiveFormat(string format) {
+			_archive["format"] = format;
+		}
+
+		public void setArchiveTitle(string title) {
+			_archive["title"] = title;
 		}
 
 	}

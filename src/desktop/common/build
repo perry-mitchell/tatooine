@@ -5,4 +5,4 @@
 # Current path
 CWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-dmcs -t:library -out:$CWD/Tatooine.common.dll "$CWD/*.cs"
+dmcs -t:library -out:$CWD/Tatooine.common.dll -unsafe "$CWD/*.cs"
