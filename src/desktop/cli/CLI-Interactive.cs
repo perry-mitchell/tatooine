@@ -16,10 +16,13 @@ namespace Tatooine.CLI {
 		protected SecureString currentPassword;
 
 		protected Dictionary<string, string> lastGroups;
+		protected string selectedGroup;
 
 		public Interactive(string filename = "") {
 			archiveFilename = filename;
 			currentPassword = new SecureString();
+
+			selectedGroup = "";
 
 			if ((filename.Length > 0) && File.Exists(filename)) {
 				start();
@@ -78,7 +81,8 @@ namespace Tatooine.CLI {
 			List<string> keys = new List<string>(lastGroups.Keys.ToArray());
 			for (int groupIndex = 0; groupIndex < keys.Count; groupIndex += 1) {
 				string hexKey = keys[groupIndex];
-				Console.WriteLine("   " + groupIndex + ". " + lastGroups[hexKey]);
+				string selectedFlag = (selectedGroup.Equals(hexKey)) ? "*" : " ";
+				Console.WriteLine(" " + selectedFlag + " " + groupIndex + ". " + lastGroups[hexKey]);
 			}
 		}
 
@@ -107,12 +111,15 @@ namespace Tatooine.CLI {
 			} else if (major.Equals("groups")) {
 				if (parts.Length > 1) {
 					string minor = parts[1].ToLower();
+					string tertiary = (parts.Length >= 3) ? parts[2] : "";
 					List<string> args = new List<string>(parts);
 					// Remove first 2 items
 					args.RemoveAt(0);
 					args.RemoveAt(0);
 					if (minor.Equals("add")) {
 						addGroup(string.Join(" ", args.ToArray()));
+					} else if (minor.Equals("select")) {
+						selectGroup(Convert.ToInt32(tertiary));
 					} else {
 						Console.WriteLine("Unknown groups command");
 					}
@@ -155,6 +162,16 @@ namespace Tatooine.CLI {
 			}
 
 			runMenu();
+		}
+
+		protected void selectGroup(int index) {
+			string[] keys = lastGroups.Keys.ToArray();
+			if ((index >= 0) && (index < keys.Length)) {
+				selectedGroup = keys[index];
+				Console.WriteLine("Selected group: " + lastGroups[selectedGroup]);
+			} else {
+				Console.WriteLine("Index is out of bounds for " + keys.Length.ToString() + " groups");
+			}
 		}
 
 		protected void setArchiveParameter(string key, string value) {
