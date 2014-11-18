@@ -16,13 +16,16 @@ namespace Tatooine.CLI {
 		protected SecureString currentPassword;
 
 		protected Dictionary<string, string> lastGroups;
+		protected List<PasswordEntry> lastEntries;
 		protected string selectedGroup;
+		protected PasswordEntry selectedEntry;
 
 		public Interactive(string filename = "") {
 			archiveFilename = filename;
 			currentPassword = new SecureString();
 
 			selectedGroup = "";
+			selectedEntry = null;
 
 			if ((filename.Length > 0) && File.Exists(filename)) {
 				start();
@@ -76,6 +79,15 @@ namespace Tatooine.CLI {
             return pwd;
 		}
 
+		protected void listEntries() {
+			refreshEntries();
+			for (int i = 0; i < lastEntries.Count; i += 1) {
+				//string selectedFlag = (selectedGroup.Equals(hexKey)) ? "*" : " ";
+				string selectedFlag = " ";
+				Console.WriteLine(" " + selectedFlag + " " + i + ". " + lastEntries[i].getTitle());
+			}
+		}
+
 		protected void listGroups() {
 			refreshGroups();
 			List<string> keys = new List<string>(lastGroups.Keys.ToArray());
@@ -92,6 +104,10 @@ namespace Tatooine.CLI {
 				length = sm.String.Length;
 			}
 			return (length > 0);
+		}
+
+		protected void refreshEntries() {
+			lastEntries = archive.getEntriesForGroup(selectedGroup);
 		}
 
 		protected void refreshGroups() {
@@ -125,6 +141,24 @@ namespace Tatooine.CLI {
 					}
 				} else {
 					listGroups();
+				}
+			} else if (major.Equals("entries")) {
+				if (parts.Length > 1) {
+					string minor = parts[1].ToLower();
+					string tertiary = (parts.Length >= 3) ? parts[2] : "";
+					List<string> args = new List<string>(parts);
+					// Remove first 2 items
+					args.RemoveAt(0);
+					args.RemoveAt(0);
+					if (minor.Equals("add")) {
+						addGroup(string.Join(" ", args.ToArray()));
+					} else if (minor.Equals("select")) {
+						selectGroup(Convert.ToInt32(tertiary));
+					} else {
+						Console.WriteLine("Unknown entries command");
+					}
+				} else {
+					listEntries();
 				}
 			} else if (major.Equals("set")) {
 				if (parts.Length >= 3) {

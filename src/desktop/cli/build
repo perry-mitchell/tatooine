@@ -8,6 +8,9 @@ CWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Run other build
 bash $CWD/../common/build
 
+echo "Building CLI..."
+echo "-----------------------------"
+
 # Copy DLL
 cp $CWD/../common/Tatooine.common.dll $CWD/
 

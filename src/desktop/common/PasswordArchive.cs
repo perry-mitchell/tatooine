@@ -67,6 +67,22 @@ namespace Tatooine {
 			return (_archive.ContainsKey("title")) ? (string)_archive["title"] : "";
 		}
 
+		public List<PasswordEntry> getEntriesForGroup(string groupHash) {
+			List<PasswordEntry> entries = new List<PasswordEntry>();
+			if (_archive.ContainsKey("items")) {
+				ArrayList items = (ArrayList)_archive["items"];
+				for (int i = 0; i < items.Count; i += 1) {
+					Hashtable currentItem = (Hashtable)items[i];
+					string currentHash = (currentItem.ContainsKey("group")) ? (string)currentItem["group"] : "";
+					if (currentHash.Equals(groupHash) && (groupHash.Length > 0)) {
+						PasswordEntry pe = new PasswordEntry(currentItem);
+						entries.Add(pe);
+					}
+				}
+			}
+			return entries;
+		}
+
 		public string getGroupName(string hash) {
 			Dictionary<string, string> groups = getGroups();
 			return (groups.ContainsKey(hash)) ? groups[hash] : "";
