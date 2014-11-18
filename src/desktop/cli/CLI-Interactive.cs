@@ -1,5 +1,6 @@
 using System;
 using System.Security;
+using System.Linq;
 using System.IO;
 using Tatooine;
 using Tatooine.IO;
@@ -14,13 +15,26 @@ namespace Tatooine.CLI {
 		protected string archiveFilename;
 		protected SecureString currentPassword;
 
+		protected Dictionary<string, string> lastGroups;
+
 		public Interactive(string filename = "") {
 			archiveFilename = filename;
 			currentPassword = new SecureString();
+
 			if ((filename.Length > 0) && File.Exists(filename)) {
 				start();
 			} else {
 				startNew();
+			}
+		}
+
+		protected void addGroup(string name) {
+			string groupName = name.Trim();
+			if (groupName.Length > 0) {
+				string groupHash = archive.createGroup(groupName);
+				// todo: check hash?
+			} else {
+				Console.WriteLine("Error: Group name must not be empty");
 			}
 		}
 
@@ -59,12 +73,25 @@ namespace Tatooine.CLI {
             return pwd;
 		}
 
+		protected void listGroups() {
+			refreshGroups();
+			List<string> keys = new List<string>(lastGroups.Keys.ToArray());
+			for (int groupIndex = 0; groupIndex < keys.Count; groupIndex += 1) {
+				string hexKey = keys[groupIndex];
+				Console.WriteLine("   " + groupIndex + ". " + lastGroups[hexKey]);
+			}
+		}
+
 		protected bool passwordHasBeenSet() {
 			int length = 0;
 			using(SecureStringToStringMarshaler sm = new SecureStringToStringMarshaler(currentPassword)) {
 				length = sm.String.Length;
 			}
 			return (length > 0);
+		}
+
+		protected void refreshGroups() {
+			lastGroups = archive.getGroups();
 		}
 
 		protected void runMenu() {
@@ -77,6 +104,21 @@ namespace Tatooine.CLI {
 				Console.WriteLine(archive.getArchiveTitle());
 			} else if (major.Equals("format")) {
 				Console.WriteLine(archive.getArchiveFormat());
+			} else if (major.Equals("groups")) {
+				if (parts.Length > 1) {
+					string minor = parts[1].ToLower();
+					List<string> args = new List<string>(parts);
+					// Remove first 2 items
+					args.RemoveAt(0);
+					args.RemoveAt(0);
+					if (minor.Equals("add")) {
+						addGroup(string.Join(" ", args.ToArray()));
+					} else {
+						Console.WriteLine("Unknown groups command");
+					}
+				} else {
+					listGroups();
+				}
 			} else if (major.Equals("set")) {
 				if (parts.Length >= 3) {
 					List<string> args = new List<string>(parts);
@@ -136,6 +178,7 @@ namespace Tatooine.CLI {
 			}
 			if (archive != null) {
 				Console.WriteLine("Loaded: " + archive.getArchiveTitle());
+				refreshGroups();
 				runMenu();
 			} else {
 				throw new Exception("Failed opening archive: " + archiveFilename);
@@ -146,6 +189,7 @@ namespace Tatooine.CLI {
 			Console.WriteLine("Starting new archive...");
 			archive = PasswordArchive.createNew();
 			archive.setArchiveFormat(PasswordArchive.SUPPORTED_ARCHIVE_FORMAT);
+			refreshGroups();
 			runMenu();
 		}
 

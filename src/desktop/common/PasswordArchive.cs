@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Security;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Tatooine.IO;
 
 namespace Tatooine {
@@ -14,6 +16,28 @@ namespace Tatooine {
 
 		protected PasswordArchive (Hashtable archive) {
 			_archive = archive;
+		}
+
+		public string createGroup(string groupName) {
+			if (groupName.Length > 0) {
+				string existingGroup = "";
+				string newHash = "";
+				Random rnd = new Random();
+				do {
+					newHash = Tools.Encoding.sha256(groupName + rnd.Next(1, 9999).ToString());
+					existingGroup = getGroupName(newHash);
+				} while (existingGroup.Length > 0);
+				if (newHash.Length <= 0) {
+					throw new Exception("Failed generating a new group hash");
+				}
+				if (!_archive.ContainsKey("groups")) {
+					_archive.Add("groups", new Hashtable());
+				}
+				Hashtable groups = (Hashtable)_archive["groups"];
+				groups.Add(newHash, groupName);
+				return newHash;
+			}
+			return "";
 		}
 
 		public static PasswordArchive createFromFileStorage(PasswordStorageAbstract storage) {
@@ -41,6 +65,19 @@ namespace Tatooine {
 
 		public string getArchiveTitle() {
 			return (_archive.ContainsKey("title")) ? (string)_archive["title"] : "";
+		}
+
+		public string getGroupName(string hash) {
+			Dictionary<string, string> groups = getGroups();
+			return (groups.ContainsKey(hash)) ? groups[hash] : "";
+		}
+
+		public Dictionary<string, string> getGroups() {
+			if (_archive.ContainsKey("groups")) {
+				Hashtable groupsHashtable = (Hashtable)_archive["groups"];
+				return Tools.Encoding.hashtableToDictionary<string, string>(groupsHashtable);
+			}
+			return new Dictionary<string, string>();
 		}
 
 		public bool isSupported() {
