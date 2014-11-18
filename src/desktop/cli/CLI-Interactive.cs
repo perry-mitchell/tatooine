@@ -34,6 +34,19 @@ namespace Tatooine.CLI {
 			}
 		}
 
+		protected void addEntry(string name) {
+			if (selectedGroup.Length <= 0) {
+				Console.WriteLine("Error: No group selected");
+				return;
+			}
+			string entryName = name.Trim();
+			if (entryName.Length > 0) {
+				selectedEntry = archive.createEntry(entryName, selectedGroup);
+			} else {
+				Console.WriteLine("Error: Entry title must not be empty");
+			}
+		}
+
 		protected void addGroup(string name) {
 			string groupName = name.Trim();
 			if (groupName.Length > 0) {
@@ -82,8 +95,7 @@ namespace Tatooine.CLI {
 		protected void listEntries() {
 			refreshEntries();
 			for (int i = 0; i < lastEntries.Count; i += 1) {
-				//string selectedFlag = (selectedGroup.Equals(hexKey)) ? "*" : " ";
-				string selectedFlag = " ";
+				string selectedFlag = (lastEntries.IndexOf(selectedEntry) == i) ? "*" : " ";
 				Console.WriteLine(" " + selectedFlag + " " + i + ". " + lastEntries[i].getTitle());
 			}
 		}
@@ -151,9 +163,9 @@ namespace Tatooine.CLI {
 					args.RemoveAt(0);
 					args.RemoveAt(0);
 					if (minor.Equals("add")) {
-						addGroup(string.Join(" ", args.ToArray()));
+						addEntry(string.Join(" ", args.ToArray()));
 					} else if (minor.Equals("select")) {
-						selectGroup(Convert.ToInt32(tertiary));
+						selectEntry(Convert.ToInt32(tertiary));
 					} else {
 						Console.WriteLine("Unknown entries command");
 					}
@@ -198,13 +210,22 @@ namespace Tatooine.CLI {
 			runMenu();
 		}
 
+		protected void selectEntry(int index) {
+			if ((index >= 0) && (index < lastEntries.Count)) {
+				selectedEntry = lastEntries[index];
+				Console.WriteLine("Selected entry: " + selectedEntry.getTitle());
+			} else {
+				Console.WriteLine("Error: Index is out of bounds for " + lastEntries.Count.ToString() + " entries");
+			}
+		}
+
 		protected void selectGroup(int index) {
 			string[] keys = lastGroups.Keys.ToArray();
 			if ((index >= 0) && (index < keys.Length)) {
 				selectedGroup = keys[index];
 				Console.WriteLine("Selected group: " + lastGroups[selectedGroup]);
 			} else {
-				Console.WriteLine("Index is out of bounds for " + keys.Length.ToString() + " groups");
+				Console.WriteLine("Error: Index is out of bounds for " + keys.Length.ToString() + " groups");
 			}
 		}
 

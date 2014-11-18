@@ -18,6 +18,24 @@ namespace Tatooine {
 			_archive = archive;
 		}
 
+		public PasswordEntry createEntry(string title, string groupHash) {
+			if (!groupExists(groupHash)) {
+				throw new Exception("Group for hash does not exist: " + groupHash);
+			}
+			if (title.Trim().Length <= 0) {
+				throw new Exception("Title must be set and not empty");
+			}
+			Hashtable newEntry = new Hashtable();
+			newEntry.Add("title", title);
+			newEntry.Add("group", groupHash);
+			if (!_archive.ContainsKey("items")) {
+				_archive.Add("items", new ArrayList());
+			}
+			ArrayList items = (ArrayList)_archive["items"];
+			items.Add(newEntry);
+			return new PasswordEntry(newEntry);
+		}
+
 		public string createGroup(string groupName) {
 			if (groupName.Length > 0) {
 				string existingGroup = "";
@@ -94,6 +112,10 @@ namespace Tatooine {
 				return Tools.Encoding.hashtableToDictionary<string, string>(groupsHashtable);
 			}
 			return new Dictionary<string, string>();
+		}
+
+		public bool groupExists(string hash) {
+			return (getGroupName(hash).Length > 0);
 		}
 
 		public bool isSupported() {
