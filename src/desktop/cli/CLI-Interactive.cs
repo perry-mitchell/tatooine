@@ -52,6 +52,7 @@ namespace Tatooine.CLI {
 			if (groupName.Length > 0) {
 				string groupHash = archive.createGroup(groupName);
 				// todo: check hash?
+				selectedGroup = groupHash;
 			} else {
 				Console.WriteLine("Error: Group name must not be empty");
 			}
