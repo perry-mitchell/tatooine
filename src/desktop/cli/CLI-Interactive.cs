@@ -58,6 +58,19 @@ namespace Tatooine.CLI {
 			}
 		}
 
+		protected void displayEntry(PasswordEntry pe) {
+			if (selectedEntry != null) {
+				string groupName = archive.getGroupName(pe.getGroup());
+				Console.WriteLine("Title:".PadRight(10) + pe.getTitle());
+				Console.WriteLine("Group:".PadRight(10) + groupName);
+				Console.WriteLine("Properties:");
+				List<string> propKeys = pe.getPropertyNames();
+				foreach (string key in propKeys) {
+					Console.WriteLine("  " + key.PadRight(10) + " --> " + pe.getProperty(key));
+				}
+			}
+		}
+
 		private string getFilename() {
 			Console.Write("Filename: ");
 			string filename = Console.ReadLine();
@@ -155,6 +168,8 @@ namespace Tatooine.CLI {
 				} else {
 					listGroups();
 				}
+			} else if (major.Equals("entry")) {
+				displayEntry(selectedEntry);
 			} else if (major.Equals("entries")) {
 				if (parts.Length > 1) {
 					string minor = parts[1].ToLower();
@@ -225,6 +240,8 @@ namespace Tatooine.CLI {
 			if ((index >= 0) && (index < keys.Length)) {
 				selectedGroup = keys[index];
 				Console.WriteLine("Selected group: " + lastGroups[selectedGroup]);
+				Console.WriteLine("  Entries:");
+				listEntries();
 			} else {
 				Console.WriteLine("Error: Index is out of bounds for " + keys.Length.ToString() + " groups");
 			}

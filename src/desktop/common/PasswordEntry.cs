@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Tatooine {
 
@@ -21,6 +23,16 @@ namespace Tatooine {
 				return (properties.ContainsKey(propKey)) ? (string)properties[propKey] : "";
 			}
 			return "";
+		}
+
+		public List<string> getPropertyNames() {
+			if (data.ContainsKey("properties")) {
+				Hashtable properties = (Hashtable)data["properties"];
+				Dictionary<string, string> props = Tools.Encoding.hashtableToDictionary<string, string>(properties);
+				return props.Keys.ToList();
+			} else {
+				return new List<string>();
+			}
 		}
 
 		public string getTitle() {
