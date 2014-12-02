@@ -1,11 +1,20 @@
 ﻿using System;
+using Gtk;
 
-namespace Tatooine {
-	public partial class ArchiveWindow : Gtk.Window {
-		public ArchiveWindow () :
-			base (Gtk.WindowType.Toplevel) {
-			this.Build ();
-		}
+public partial class ArchiveWindow: Gtk.Window
+{
+
+	private string archiveFilename;
+
+	public ArchiveWindow (string archiveFilePath) : base (Gtk.WindowType.Toplevel)
+	{
+		archiveFilename = archiveFilePath;
 	}
-}
 
+	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
+	{
+		//Application.Quit ();
+		//a.RetVal = true;
+	}
+
+}

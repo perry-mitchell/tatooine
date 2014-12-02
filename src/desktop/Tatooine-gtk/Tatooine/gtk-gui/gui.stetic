@@ -7,7 +7,7 @@
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/Tatooine.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="541 295">
+  <widget class="Gtk.Window" id="MainWindow" design-size="546 295">
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
     <property name="WindowPosition">CenterOnParent</property>
@@ -45,7 +45,7 @@
               </packing>
             </child>
             <child>
-              <widget class="Gtk.Entry" id="entry1">
+              <widget class="Gtk.Entry" id="fileEntry">
                 <property name="MemberName" />
                 <property name="WidthRequest">350</property>
                 <property name="CanFocus">True</property>
@@ -58,16 +58,31 @@
               </packing>
             </child>
             <child>
+              <widget class="Gtk.Button" id="button2">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="Type">TextOnly</property>
+                <property name="Label" translatable="yes">Choose</property>
+                <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="chooseClicked" />
+              </widget>
+              <packing>
+                <property name="X">464</property>
+                <property name="Y">22</property>
+              </packing>
+            </child>
+            <child>
               <widget class="Gtk.Button" id="button1">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">Open</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="openClicked" />
               </widget>
               <packing>
-                <property name="X">329</property>
-                <property name="Y">56</property>
+                <property name="X">477</property>
+                <property name="Y">57</property>
               </packing>
             </child>
           </widget>
@@ -75,7 +90,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Window" id="Tatooine.ArchiveWindow" design-size="680 443">
+  <widget class="Gtk.Window" id="ArchiveWindow" design-size="680 443">
     <property name="MemberName" />
     <property name="Title" translatable="yes">ArchiveWindow</property>
     <property name="WindowPosition">CenterOnParent</property>

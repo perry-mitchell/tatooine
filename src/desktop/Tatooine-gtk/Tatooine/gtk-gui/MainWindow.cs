@@ -4,17 +4,13 @@
 public partial class MainWindow
 {
 	private global::Gtk.Frame frame1;
-	
 	private global::Gtk.Fixed fixed1;
-	
 	private global::Gtk.Label GtkLabel;
-	
 	private global::Gtk.Label label1;
-	
-	private global::Gtk.Entry entry1;
-	
+	private global::Gtk.Entry fileEntry;
+	private global::Gtk.Button button2;
 	private global::Gtk.Button button1;
-
+	
 	protected virtual void Build ()
 	{
 		global::Stetic.Gui.Initialize (this);
@@ -48,16 +44,26 @@ public partial class MainWindow
 		w2.X = 44;
 		w2.Y = 29;
 		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.entry1 = new global::Gtk.Entry ();
-		this.entry1.WidthRequest = 350;
-		this.entry1.CanFocus = true;
-		this.entry1.Name = "entry1";
-		this.entry1.IsEditable = true;
-		this.entry1.InvisibleChar = '●';
-		this.fixed1.Add (this.entry1);
-		global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.entry1]));
+		this.fileEntry = new global::Gtk.Entry ();
+		this.fileEntry.WidthRequest = 350;
+		this.fileEntry.CanFocus = true;
+		this.fileEntry.Name = "fileEntry";
+		this.fileEntry.IsEditable = true;
+		this.fileEntry.InvisibleChar = '●';
+		this.fixed1.Add (this.fileEntry);
+		global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.fileEntry]));
 		w3.X = 108;
 		w3.Y = 21;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.button2 = new global::Gtk.Button ();
+		this.button2.CanFocus = true;
+		this.button2.Name = "button2";
+		this.button2.UseUnderline = true;
+		this.button2.Label = global::Mono.Unix.Catalog.GetString ("Choose");
+		this.fixed1.Add (this.button2);
+		global::Gtk.Fixed.FixedChild w4 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.button2]));
+		w4.X = 464;
+		w4.Y = 22;
 		// Container child fixed1.Gtk.Fixed+FixedChild
 		this.button1 = new global::Gtk.Button ();
 		this.button1.CanFocus = true;
@@ -65,17 +71,19 @@ public partial class MainWindow
 		this.button1.UseUnderline = true;
 		this.button1.Label = global::Mono.Unix.Catalog.GetString ("Open");
 		this.fixed1.Add (this.button1);
-		global::Gtk.Fixed.FixedChild w4 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.button1]));
-		w4.X = 329;
-		w4.Y = 56;
+		global::Gtk.Fixed.FixedChild w5 = ((global::Gtk.Fixed.FixedChild)(this.fixed1 [this.button1]));
+		w5.X = 477;
+		w5.Y = 57;
 		this.frame1.Add (this.fixed1);
 		this.Add (this.frame1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 541;
+		this.DefaultWidth = 546;
 		this.DefaultHeight = 295;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
+		this.button2.Clicked += new global::System.EventHandler (this.chooseClicked);
+		this.button1.Clicked += new global::System.EventHandler (this.openClicked);
 	}
 }
