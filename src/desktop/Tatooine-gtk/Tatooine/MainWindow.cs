@@ -1,5 +1,6 @@
 ﻿using System;
 using Gtk;
+using System.Security;
 
 public partial class MainWindow: Gtk.Window
 {
@@ -37,9 +38,19 @@ public partial class MainWindow: Gtk.Window
             md.Run();
             md.Destroy();
 		} else {
-			ArchiveWindow aw = new ArchiveWindow(fileEntry.Text);
-			aw.Show();
-			this.Hide ();
+			this.Hide();
+			//ArchiveWindow aw = new ArchiveWindow(fileEntry.Text);
+			//aw.Show();
+			PasswordEntryDialog ped = new PasswordEntryDialog();
+			ped.Run();
+			string pass = ped.getPassword();
+			SecureString password = new SecureString();
+			foreach (char c in pass) {
+			    password.AppendChar(c);
+			}
+			ped.Destroy();
+			ArchiveWindow aw = new ArchiveWindow(fileEntry.Text, password);
+			aw.Show ();
 		}
 	}
 

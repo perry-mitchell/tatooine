@@ -57,6 +57,10 @@
       <Package>gtk-sharp-2.0</Package>
     </Reference>
     <Reference Include="Mono.Posix" />
+    <Reference Include="Tatooine.common">
+      <HintPath>..\..\common\Tatooine.common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -69,17 +73,10 @@
     <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Library\JSONParsing.cs" />
-    <Compile Include="Library\Storage\PasswordStorageAbstract.cs" />
-    <Compile Include="Library\Storage\PasswordTextStorage.cs" />
-    <Compile Include="Library\Archive\PasswordArchive.cs" />
     <Compile Include="ArchiveWindow.cs" />
     <Compile Include="gtk-gui\ArchiveWindow.cs" />
+    <Compile Include="PasswordEntryDialog.cs" />
+    <Compile Include="gtk-gui\PasswordEntryDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="Library\" />
-    <Folder Include="Library\Storage\" />
-    <Folder Include="Library\Archive\" />
-  </ItemGroup>
 </Project>
