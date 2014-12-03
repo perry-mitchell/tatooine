@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security;
+using System.Collections.Generic;
 using Gtk;
 using Tatooine;
 
@@ -47,7 +48,11 @@ public partial class ArchiveWindow: Gtk.Window
 
 	protected void populateInterface ()
 	{
-
+		Dictionary<string, string> groups = archive.getGroups ();
+		Dictionary<string, string>.ValueCollection valueColl = groups.Values;
+		foreach (string groupName in valueColl) {
+			groupsListStore.AppendValues(groupName);
+		}
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
