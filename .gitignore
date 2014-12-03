@@ -1,2 +1,5 @@
 # Test files
 *.tat
+
+#Build files
+bin/Debug/**/*
