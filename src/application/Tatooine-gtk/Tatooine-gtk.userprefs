@@ -2,9 +2,8 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Tatooine/ArchiveWindow.cs">
     <Files>
-      <File FileName="Tatooine/MainWindow.cs" Line="6" Column="23" />
-      <File FileName="Tatooine/ArchiveWindow.cs" Line="8" Column="2" />
-      <File FileName="Tatooine/PasswordEntryDialog.cs" Line="16" Column="1" />
+      <File FileName="Tatooine/MainWindow.cs" Line="56" Column="2" />
+      <File FileName="Tatooine/ArchiveWindow.cs" Line="40" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
