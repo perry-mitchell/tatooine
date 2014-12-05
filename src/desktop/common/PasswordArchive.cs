@@ -38,6 +38,7 @@ namespace Tatooine {
 			ArrayList items = (ArrayList)_archive["items"];
 			items.Add(newEntry);
 			PasswordEntry pe = new PasswordEntry(newEntry);
+			pe.setProperty("username", "");
 			pe.setProperty("password", "");
 			return pe;
 		}

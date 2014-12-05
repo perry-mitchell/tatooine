@@ -194,7 +194,9 @@ namespace Tatooine.CLI {
 					// Remove first 2 items
 					args.RemoveAt(0);
 					args.RemoveAt(0);
-					setArchiveParameter(parts[1], string.Join(" ", args.ToArray()));
+					if (!setArchiveParameter(parts[1], string.Join(" ", args.ToArray()))) {
+						setArchiveProperty(parts[1], string.Join(" ", args.ToArray()));
+					}
 				} else {
 					Console.WriteLine("Error: format expected to be 'set <key> <value>'");
 				}
@@ -247,11 +249,20 @@ namespace Tatooine.CLI {
 			}
 		}
 
-		protected void setArchiveParameter(string key, string value) {
+		protected bool setArchiveParameter(string key, string value) {
 			if (key.Equals("title")) {
 				archive.setArchiveTitle(value);
+				return true;
+			}
+			return false;
+		}
+
+		protected void setArchiveProperty(string key, string value) {
+			if (selectedEntry != null) {
+				selectedEntry.setProperty(key, value);
+				Console.WriteLine("Property updated.");
 			} else {
-				Console.WriteLine("Error: unknown property '" + key + "'");
+				Console.WriteLine("Error: no password entry selected");
 			}
 		}
 
