@@ -49,8 +49,8 @@ public partial class ArchiveWindow: Gtk.Window
 		groupsView.Model = groupsListStore;
 
 		entriesView.AppendColumn("Title", new CellRendererText(), "text", 0);
-		entriesView.AppendColumn("Username", new CellRendererText(), "text", 0);
-		entriesView.AppendColumn("Password", new CellRendererText(), "text", 0);
+		entriesView.AppendColumn("Username", new CellRendererText(), "text", 1);
+		entriesView.AppendColumn("Password", new CellRendererText(), "text", 2);
 
 		entriesListStore = new ListStore(typeof (string), typeof (string), typeof (string));
 		entriesView.Model = entriesListStore;
