@@ -49,8 +49,10 @@ public partial class ArchiveWindow: Gtk.Window
 		groupsView.Model = groupsListStore;
 
 		entriesView.AppendColumn("Title", new CellRendererText(), "text", 0);
+		entriesView.AppendColumn("Username", new CellRendererText(), "text", 0);
+		entriesView.AppendColumn("Password", new CellRendererText(), "text", 0);
 
-		entriesListStore = new ListStore(typeof (string));
+		entriesListStore = new ListStore(typeof (string), typeof (string), typeof (string));
 		entriesView.Model = entriesListStore;
 
 	}
@@ -74,14 +76,14 @@ public partial class ArchiveWindow: Gtk.Window
 		entriesListStore.Clear();
 		List<PasswordEntry> entries = archive.getEntriesForGroup (hash);
 		foreach (PasswordEntry pe in entries) {
-			entriesListStore.AppendValues(pe.getTitle());
+			entriesListStore.AppendValues(pe.getTitle(), pe.getProperty("username"), "********");
 		}
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
 	{
 		Application.Quit ();
-		//a.RetVal = true;
+		a.RetVal = true;
 	}
 
 	protected void groupItemSelected (object o, EventArgs args)

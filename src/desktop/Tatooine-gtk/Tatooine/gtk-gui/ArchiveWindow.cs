@@ -97,6 +97,7 @@ public partial class ArchiveWindow
 		this.DefaultWidth = 680;
 		this.DefaultHeight = 443;
 		this.Show ();
+		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.groupsView.CursorChanged += new global::System.EventHandler (this.groupItemSelected);
 	}
 }
