@@ -103,7 +103,7 @@ namespace Tatooine {
 		}
 
 		public void writeToFile(string filename) {
-
+			ArchiveFileHandler.writeEncryptedContent(filename, _archive, _password);
 		}
 
 	}

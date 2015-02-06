@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="/home/perry/git/tatooine/test/tests.dll" total="2" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2015-02-06" time="16:08:45">
+<test-results name="/home/perry/git/tatooine/test/tests.dll" total="2" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2015-02-06" time="16:14:12">
   <environment nunit-version="2.6.4.14350" clr-version="2.0.50727.1433" os-version="Unix 3.2.0.4" platform="Unix" cwd="/home/perry/git/tatooine/test" machine-name="KioskedPerry" user="perry" user-domain="KioskedPerry" />
   <culture-info current-culture="en-AU" current-uiculture="en-AU" />
-  <test-suite type="Assembly" name="/home/perry/git/tatooine/test/tests.dll" executed="True" result="Success" success="True" time="0.026" asserts="0">
+  <test-suite type="Assembly" name="/home/perry/git/tatooine/test/tests.dll" executed="True" result="Success" success="True" time="0.056" asserts="0">
     <results>
-      <test-suite type="Namespace" name="TatooineTests" executed="True" result="Success" success="True" time="0.023" asserts="0">
+      <test-suite type="Namespace" name="TatooineTests" executed="True" result="Success" success="True" time="0.053" asserts="0">
         <results>
-          <test-suite type="TestFixture" name="EncodingTests" executed="True" result="Success" success="True" time="0.015" asserts="0">
+          <test-suite type="TestFixture" name="EncodingTests" executed="True" result="Success" success="True" time="0.013" asserts="0">
             <results>
-              <test-case name="TatooineTests.EncodingTests.testSha256BasicChars" executed="True" result="Success" success="True" time="0.012" asserts="1" />
+              <test-case name="TatooineTests.EncodingTests.testSha256BasicChars" executed="True" result="Success" success="True" time="0.010" asserts="1" />
             </results>
           </test-suite>
-          <test-suite type="TestFixture" name="PasswordArchiveTests" executed="True" result="Success" success="True" time="0.001" asserts="0">
+          <test-suite type="TestFixture" name="PasswordArchiveTests" executed="True" result="Success" success="True" time="0.034" asserts="0">
             <results>
-              <test-case name="TatooineTests.PasswordArchiveTests.testCreateNewArchiveMakesFile" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+              <test-case name="TatooineTests.PasswordArchiveTests.testCreateNewArchiveMakesFile" executed="True" result="Success" success="True" time="0.034" asserts="1" />
             </results>
           </test-suite>
         </results>

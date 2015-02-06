@@ -21,6 +21,9 @@ namespace TatooineTests {
 
 		[Test] public void testCreateNewArchiveMakesFile() {
 			PasswordArchive archive = PasswordArchive.createNew(passwordSecure);
+			archive.writeToFile("test.tat");
+			Assert.True(File.Exists("test.tat"));
+			File.Delete("test.tat");
 		}
 
 	}
