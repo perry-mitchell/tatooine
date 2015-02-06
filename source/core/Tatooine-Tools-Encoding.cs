@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
 using System.Security.Cryptography;
 using System.Linq;
 
@@ -24,6 +25,19 @@ namespace Tatooine.Tools {
 				hash += bit.ToString("x2");
 			}
 			return hash;
+		}
+
+		public static SecureString stringToSecureString(string text) {
+			if (text == null) {
+                throw new ArgumentNullException("String must not be null");
+			}
+
+            var secureText = new SecureString();
+            foreach (char c in text) {
+                secureText.AppendChar(c);
+            }
+            secureText.MakeReadOnly();
+            return secureText;
 		}
 
 	}

@@ -19,10 +19,10 @@ namespace Tatooine {
 		protected PasswordArchive(Hashtable archive, SecureString password) {
 			_archive = archive;
 			_password = password;
-			if (!isSupported()) {
-				Console.WriteLine("Archives must be in format: " + SUPPORTED_ARCHIVE_FORMAT);
-				throw new Exception("Invalid archive format: " + getArchiveFormat());
-			}
+		}
+
+		public static PasswordArchive createNew(SecureString password) {
+			return new PasswordArchive(new Hashtable(), password);
 		}
 
 		public static PasswordArchive createWithFile(string filename, SecureString password) {
@@ -31,7 +31,12 @@ namespace Tatooine {
 
 			// TODO: check props are valid
 
-			return new PasswordArchive(props, password);
+			PasswordArchive archive = new PasswordArchive(props, password);
+			if (!archive.isSupported()) {
+				Console.WriteLine("Archives must be in format: " + SUPPORTED_ARCHIVE_FORMAT);
+				throw new Exception("Invalid archive format: " + archive.getArchiveFormat());
+			}
+			return archive;
 		}
 
 		public string getArchiveFormat() {
