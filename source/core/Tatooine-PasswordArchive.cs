@@ -27,8 +27,7 @@ namespace Tatooine {
 
 		public static PasswordArchive createWithFile(string filename, SecureString password) {
 			ArchiveFileHandler fileHandler = new ArchiveFileHandler(filename, password);
-			string decryptedContent = fileHandler.getDecryptedContent();
-			Hashtable props = (Hashtable)JSON.JsonDecode(decoded);
+			Hashtable props = fileHandler.getContentHandler().getDecryptedTable();
 
 			// TODO: check props are valid
 
@@ -43,7 +42,7 @@ namespace Tatooine {
 			return (_archive.ContainsKey("title")) ? (string)_archive["title"] : "";
 		}
 
-		public List<PasswordEntry> getEntriesForGroup(string groupHash) {
+		/*public List<PasswordEntry> getEntriesForGroup(string groupHash) {
 			List<PasswordEntry> entries = new List<PasswordEntry>();
 			if (_archive.ContainsKey("items")) {
 				ArrayList items = (ArrayList)_archive["items"];
@@ -57,9 +56,9 @@ namespace Tatooine {
 				}
 			}
 			return entries;
-		}
+		}*/
 
-		public PasswordEntry getEntry(string entryName, string groupHash) {
+		/*public PasswordEntry getEntry(string entryName, string groupHash) {
 			List<PasswordEntry> entries = getEntriesForGroup(groupHash);
 			foreach (PasswordEntry pe in entries) {
 				if (pe.getTitle().Equals(entryName)) {
@@ -67,7 +66,7 @@ namespace Tatooine {
 				}
 			}
 			return null;
-		}
+		}*/
 
 		public string getGroupName(string hash) {
 			Dictionary<string, string> groups = getGroups();
@@ -99,7 +98,7 @@ namespace Tatooine {
 		}
 
 		public void writeToFile(string filename) {
-			
+
 		}
 
 	}
