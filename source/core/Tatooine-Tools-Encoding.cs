@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Tatooine.Tools {
 
-	class Encoding {
+	public class Encoding {
 
 		private Encoding() {}
 

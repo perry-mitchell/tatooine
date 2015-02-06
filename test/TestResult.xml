@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="/home/perry/git/tatooine/test/tests.dll" total="1" errors="0" failures="1" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2015-02-06" time="15:28:56">
+  <environment nunit-version="2.6.4.14350" clr-version="2.0.50727.1433" os-version="Unix 3.2.0.4" platform="Unix" cwd="/home/perry/git/tatooine/test" machine-name="KioskedPerry" user="perry" user-domain="KioskedPerry" />
+  <culture-info current-culture="en-AU" current-uiculture="en-AU" />
+  <test-suite type="Assembly" name="/home/perry/git/tatooine/test/tests.dll" executed="True" result="Failure" success="False" time="0.022" asserts="0">
+    <results>
+      <test-suite type="Namespace" name="TatooineTests" executed="True" result="Failure" success="False" time="0.019" asserts="0">
+        <results>
+          <test-suite type="TestFixture" name="EncodingTests" executed="True" result="Failure" success="False" time="0.018" asserts="0">
+            <results>
+              <test-case name="TatooineTests.EncodingTests.testSha256BasicChars" executed="True" result="Failure" success="False" time="0.016" asserts="1">
+                <failure>
+                  <message><![CDATA[  Expected string length 64 but was 65. Strings differ at index 64.
+  Expected: "...ea58a97a993dcd5c86c824bb8f2eb88eecdcf5431f5b1964aff1e4c9b3f3"
+  But was:  "...ea58a97a993dcd5c86c824bb8f2eb88eecdcf5431f5b1964aff1e4c9b3f3d"
+  --------------------------------------------------------------------------^
+]]></message>
+                  <stack-trace><![CDATA[at TatooineTests.EncodingTests.testSha256BasicChars () [0x00000] in <filename unknown>:0
+]]></stack-trace>
+                </failure>
+              </test-case>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
