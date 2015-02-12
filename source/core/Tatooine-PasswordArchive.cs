@@ -21,6 +21,31 @@ namespace Tatooine {
 			_password = password;
 		}
 
+		public PasswordEntry createEntry(string title, string groupHash) {
+			title = title.Trim();
+			if (!groupExists(groupHash)) {
+				throw new Exception("Group for hash does not exist: " + groupHash);
+			}
+			if (title.Length <= 0) {
+				throw new Exception("Title must be set and not empty");
+			}
+			if (getEntry(title, groupHash) != null) {
+				throw new Exception("Title must be unique");
+			}
+			Hashtable newEntry = new Hashtable();
+			newEntry.Add("title", title);
+			newEntry.Add("group", groupHash);
+			if (!_archive.ContainsKey("items")) {
+				_archive.Add("items", new ArrayList());
+			}
+			ArrayList items = (ArrayList)_archive["items"];
+			items.Add(newEntry);
+			PasswordEntry pe = new PasswordEntry(newEntry);
+			pe.setProperty("username", "");
+			pe.setProperty("password", "");
+			return pe;
+		}
+
 		public string createGroup(string groupName) {
 			if (groupName.Length > 0) {
 				string existingGroup = "";
@@ -71,7 +96,7 @@ namespace Tatooine {
 			return (_archive.ContainsKey("title")) ? (string)_archive["title"] : "";
 		}
 
-		/*public List<PasswordEntry> getEntriesForGroup(string groupHash) {
+		public List<PasswordEntry> getEntriesForGroup(string groupHash) {
 			List<PasswordEntry> entries = new List<PasswordEntry>();
 			if (_archive.ContainsKey("items")) {
 				ArrayList items = (ArrayList)_archive["items"];
@@ -85,9 +110,9 @@ namespace Tatooine {
 				}
 			}
 			return entries;
-		}*/
+		}
 
-		/*public PasswordEntry getEntry(string entryName, string groupHash) {
+		public PasswordEntry getEntry(string entryName, string groupHash) {
 			List<PasswordEntry> entries = getEntriesForGroup(groupHash);
 			foreach (PasswordEntry pe in entries) {
 				if (pe.getTitle().Equals(entryName)) {
@@ -95,7 +120,7 @@ namespace Tatooine {
 				}
 			}
 			return null;
-		}*/
+		}
 
 		public string getGroupName(string hash) {
 			Dictionary<string, string> groups = getGroups();
