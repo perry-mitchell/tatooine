@@ -3,3 +3,6 @@
 
 test/tests.dll
 TestResult.xml
+
+# Build
+source/gtk/TatooineDesktop/bin/Debug/**/*
