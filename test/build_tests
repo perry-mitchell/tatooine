@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Current path
+CWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+NUNIT_PATH=$CWD/NUnit-2.6.4/bin
+NUNIT_DLL=$NUNIT_PATH/nunit.framework.dll
+CORE_DLL=$CWD/../source/build/Tatooine.core.dll
+
+# Clean
+rm $CWD/*.dll
+
+# Build
+dmcs -t:library -out:$CWD/tests.dll -r:$CORE_DLL -r:$NUNIT_DLL -unsafe "$CWD/tests/*.cs"
+cp $CORE_DLL $CWD/
