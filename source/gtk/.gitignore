@@ -6,3 +6,6 @@
 *.pidb
 *.resources
 test-results/
+
+TatooineDesktop/bin/Debug/**/*
+TatooineDesktop/bin/Debug/*.*
