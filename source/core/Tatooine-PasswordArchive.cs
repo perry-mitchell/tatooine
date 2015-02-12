@@ -21,8 +21,32 @@ namespace Tatooine {
 			_password = password;
 		}
 
+		public string createGroup(string groupName) {
+			if (groupName.Length > 0) {
+				string existingGroup = "";
+				string newHash = "";
+				Random rnd = new Random();
+				do {
+					newHash = Tools.Encoding.sha256(groupName + rnd.Next(1, 9999).ToString());
+					existingGroup = getGroupName(newHash);
+				} while (existingGroup.Length > 0);
+				if (newHash.Length <= 0) {
+					throw new Exception("Failed generating a new group hash");
+				}
+				if (!_archive.ContainsKey("groups")) {
+					_archive.Add("groups", new Hashtable());
+				}
+				Hashtable groups = (Hashtable)_archive["groups"];
+				groups.Add(newHash, groupName);
+				return newHash;
+			}
+			return "";
+		}
+
 		public static PasswordArchive createNew(SecureString password) {
-			return new PasswordArchive(new Hashtable(), password);
+			Hashtable newTable = new Hashtable();
+			newTable["format"] = SUPPORTED_ARCHIVE_FORMAT;
+			return new PasswordArchive(newTable, password);
 		}
 
 		public static PasswordArchive createWithFile(string filename, SecureString password) {

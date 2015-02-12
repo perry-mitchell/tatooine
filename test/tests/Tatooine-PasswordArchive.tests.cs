@@ -26,6 +26,39 @@ namespace TatooineTests {
 			File.Delete("test.tat");
 		}
 
+		// ---
+
+		[Test] public void testCreateGroupReturnsHash() {
+			PasswordArchive archive = PasswordArchive.createNew(passwordSecure);
+			string hash = archive.createGroup("Amazing Group");
+			Assert.AreEqual(hash.Length, 64);
+		}
+
+		[Test] public void testCreateGroupStoresGroup() {
+			PasswordArchive archive = PasswordArchive.createNew(passwordSecure);
+			string hash = archive.createGroup("Amazing Group");
+			StringAssert.IsMatch(archive.getGroupName(hash), "Amazing Group");
+			StringAssert.IsMatch(archive.getGroupName(hash + "2"), "");
+		}
+
+		[Test] public void testGroupExists() {
+			PasswordArchive archive = PasswordArchive.createNew(passwordSecure);
+			string hash = archive.createGroup("some-group");
+			Assert.True(archive.groupExists(hash));
+		}
+
+		[Test] public void testGroupsPersistLoading() {
+			PasswordArchive archive = PasswordArchive.createNew(passwordSecure);
+			string hash = archive.createGroup("Amazing Group");
+			archive.writeToFile("test.tat");
+			Assert.True(File.Exists("test.tat"));
+
+			PasswordArchive archive2 = PasswordArchive.createWithFile("test.tat", passwordSecure);
+			Assert.True(archive2.groupExists(hash));
+			StringAssert.IsMatch(archive2.getGroupName(hash), "Amazing Group");
+			File.Delete("test.tat");
+		}
+
 	}
 
 }

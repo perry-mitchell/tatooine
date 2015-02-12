@@ -2,4 +2,4 @@
 *.tat
 
 test/tests.dll
-test/TestResult.xml
+TestResult.xml
