@@ -7,10 +7,20 @@ public partial class MainWindow: Gtk.Window
 	{
 		Build ();
 	}
+
+	public void close() {
+		Application.Quit ();
+	}
 	
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
 	{
-		Application.Quit ();
+		this.close ();
 		a.RetVal = true;
 	}
+
+	protected void closeButtonClicked (object sender, EventArgs e)
+	{
+		this.close ();
+	}
+
 }
