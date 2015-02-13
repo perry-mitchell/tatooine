@@ -1,14 +1,24 @@
 using System;
+using Tatooine;
 
 namespace TatooineDesktop
 {
 	public partial class ArchiveWindow : Gtk.Window
 	{
-		public ArchiveWindow () : 
+
+		protected PasswordArchive _archive;
+
+		public ArchiveWindow (PasswordArchive archive) : 
 				base(Gtk.WindowType.Toplevel)
 		{
 			this.Build ();
+			this.loadArchive();
 		}
+
+		protected void loadArchive() {
+
+		}
+
 	}
 }
 

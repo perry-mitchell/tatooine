@@ -57,6 +57,9 @@
       <Package>gtk-sharp-2.0</Package>
     </Reference>
     <Reference Include="Mono.Posix" />
+    <Reference Include="Tatooine.core">
+      <HintPath>..\..\build\Tatooine.core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -71,6 +74,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="ArchiveWindow.cs" />
     <Compile Include="gtk-gui\TatooineDesktop.ArchiveWindow.cs" />
+    <Compile Include="GUIHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

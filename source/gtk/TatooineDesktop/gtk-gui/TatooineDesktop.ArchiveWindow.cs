@@ -4,13 +4,75 @@ namespace TatooineDesktop
 {
 	public partial class ArchiveWindow
 	{
+		private global::Gtk.UIManager UIManager;
+		private global::Gtk.VBox vbox4;
+		private global::Gtk.MenuBar menubar1;
+		private global::Gtk.HBox hbox5;
+		private global::Gtk.ScrolledWindow GtkScrolledWindow;
+		private global::Gtk.TreeView treeview1;
+		private global::Gtk.VBox vbox5;
+		private global::Gtk.Statusbar statusbar1;
+		
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
 			// Widget TatooineDesktop.ArchiveWindow
+			this.UIManager = new global::Gtk.UIManager ();
+			global::Gtk.ActionGroup w1 = new global::Gtk.ActionGroup ("Default");
+			this.UIManager.InsertActionGroup (w1, 0);
+			this.AddAccelGroup (this.UIManager.AccelGroup);
 			this.Name = "TatooineDesktop.ArchiveWindow";
 			this.Title = global::Mono.Unix.Catalog.GetString ("ArchiveWindow");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
+			// Container child TatooineDesktop.ArchiveWindow.Gtk.Container+ContainerChild
+			this.vbox4 = new global::Gtk.VBox ();
+			this.vbox4.Name = "vbox4";
+			this.vbox4.Spacing = 6;
+			// Container child vbox4.Gtk.Box+BoxChild
+			this.UIManager.AddUiFromString ("<ui><menubar name='menubar1'/></ui>");
+			this.menubar1 = ((global::Gtk.MenuBar)(this.UIManager.GetWidget ("/menubar1")));
+			this.menubar1.Name = "menubar1";
+			this.vbox4.Add (this.menubar1);
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.menubar1]));
+			w2.Position = 0;
+			w2.Expand = false;
+			w2.Fill = false;
+			// Container child vbox4.Gtk.Box+BoxChild
+			this.hbox5 = new global::Gtk.HBox ();
+			this.hbox5.Name = "hbox5";
+			this.hbox5.Spacing = 6;
+			// Container child hbox5.Gtk.Box+BoxChild
+			this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
+			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
+			this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
+			// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
+			this.treeview1 = new global::Gtk.TreeView ();
+			this.treeview1.CanFocus = true;
+			this.treeview1.Name = "treeview1";
+			this.GtkScrolledWindow.Add (this.treeview1);
+			this.hbox5.Add (this.GtkScrolledWindow);
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox5 [this.GtkScrolledWindow]));
+			w4.Position = 0;
+			// Container child hbox5.Gtk.Box+BoxChild
+			this.vbox5 = new global::Gtk.VBox ();
+			this.vbox5.Name = "vbox5";
+			this.vbox5.Spacing = 6;
+			this.hbox5.Add (this.vbox5);
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox5 [this.vbox5]));
+			w5.Position = 1;
+			this.vbox4.Add (this.hbox5);
+			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.hbox5]));
+			w6.Position = 1;
+			// Container child vbox4.Gtk.Box+BoxChild
+			this.statusbar1 = new global::Gtk.Statusbar ();
+			this.statusbar1.Name = "statusbar1";
+			this.statusbar1.Spacing = 6;
+			this.vbox4.Add (this.statusbar1);
+			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.statusbar1]));
+			w7.Position = 2;
+			w7.Expand = false;
+			w7.Fill = false;
+			this.Add (this.vbox4);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
