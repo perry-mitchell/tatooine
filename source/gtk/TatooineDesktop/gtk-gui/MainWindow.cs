@@ -11,7 +11,7 @@ public partial class MainWindow
 	private global::Gtk.VBox vbox3;
 	private global::Gtk.HBox hbox3;
 	private global::Gtk.Label label3;
-	private global::Gtk.Entry archiveFilePathEntry;
+	private global::Gtk.FileChooserButton archiveChooser;
 	private global::Gtk.HBox hbox4;
 	private global::Gtk.Label label4;
 	private global::Gtk.Entry archivePasswordEntry;
@@ -91,13 +91,10 @@ public partial class MainWindow
 		w2.Expand = false;
 		w2.Fill = false;
 		// Container child hbox3.Gtk.Box+BoxChild
-		this.archiveFilePathEntry = new global::Gtk.Entry ();
-		this.archiveFilePathEntry.CanFocus = true;
-		this.archiveFilePathEntry.Name = "archiveFilePathEntry";
-		this.archiveFilePathEntry.IsEditable = true;
-		this.archiveFilePathEntry.InvisibleChar = '•';
-		this.hbox3.Add (this.archiveFilePathEntry);
-		global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.archiveFilePathEntry]));
+		this.archiveChooser = new global::Gtk.FileChooserButton (global::Mono.Unix.Catalog.GetString ("Select a File"), ((global::Gtk.FileChooserAction)(0)));
+		this.archiveChooser.Name = "archiveChooser";
+		this.hbox3.Add (this.archiveChooser);
+		global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.archiveChooser]));
 		w3.Position = 1;
 		this.vbox3.Add (this.hbox3);
 		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox3]));

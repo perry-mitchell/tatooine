@@ -29,11 +29,17 @@ public partial class MainWindow: Gtk.Window
 
 	protected void openArchiveClicked (object sender, EventArgs e)
 	{
-		string archiveFilePath = archiveFilePathEntry.Text;
+		string archiveFilePath = archiveChooser.Filename;
 		if (File.Exists (archiveFilePath)) {
 			SecureString password = Tatooine.Tools.Encoding.stringToSecureString(archivePasswordEntry.Text);
 			archivePasswordEntry.Text = "";
-			PasswordArchive archive = PasswordArchive.createWithFile(archiveFilePath, password);
+			PasswordArchive archive;
+			try {
+				archive = PasswordArchive.createWithFile(archiveFilePath, password);
+			} catch (Exception err) {
+				GUIHelper.showError("Error opening archive", err.Message);
+				return;
+			}
 			ArchiveWindow archiveWindow = new ArchiveWindow(archive);
 			archiveWindow.setArchivePath(archiveFilePath);
 			this.Hide();

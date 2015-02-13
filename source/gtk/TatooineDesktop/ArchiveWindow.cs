@@ -93,6 +93,43 @@ namespace TatooineDesktop
 			}
 		}
 
+		protected void rowSelected (object sender, EventArgs e)
+		{
+			TreeSelection selection = (sender as TreeView).Selection;
+			TreeModel model;
+			TreeIter iter;
+
+			if (selection.GetSelected (out model, out iter)) {
+				int index = model.GetPath (iter).Indices [0];
+				string groupName = _loadedGroupNames[index];
+				string groupHash = _archive.getGroupHashForName(groupName);
+				loadGroup(groupHash);
+			}
+		}
+
+		protected void saveArchive ()
+		{
+			if (_archivePath.Length > 0) {
+				_archive.writeToFile(_archivePath);
+			} else {
+				Gtk.FileChooserDialog fcd = new Gtk.FileChooserDialog(
+					"Save archive",
+					this, FileChooserAction.Save,
+					"Cancel",ResponseType.Cancel, "Open",ResponseType.Accept
+				);
+				if (fcd.Run() == (int)ResponseType.Accept) {
+					_archivePath = fcd.Filename;
+					_archive.writeToFile(_archivePath);
+				}
+				fcd.Destroy();
+			}
+		}
+
+		protected void saveArchiveActivated (object sender, EventArgs e)
+		{
+			saveArchive();
+		}
+
 		public void setArchivePath(string path)
 		{
 			_archivePath = path;
@@ -143,28 +180,6 @@ namespace TatooineDesktop
 			this.close ();
 			args.RetVal = true;
 		}		
-
-		protected void saveArchiveActivated (object sender, EventArgs e)
-		{
-			throw new System.NotImplementedException ();
-		}		
-
-
-		protected void rowSelected (object sender, EventArgs e)
-		{
-			TreeSelection selection = (sender as TreeView).Selection;
-			TreeModel model;
-			TreeIter iter;
-
-			if (selection.GetSelected (out model, out iter)) {
-				int index = model.GetPath (iter).Indices [0];
-				string groupName = _loadedGroupNames[index];
-				string groupHash = _archive.getGroupHashForName(groupName);
-				loadGroup(groupHash);
-			}
-		}	
-
-
 
 	}
 }
