@@ -29,10 +29,10 @@ public partial class MainWindow: Gtk.Window
 
 	protected void openArchiveClicked (object sender, EventArgs e)
 	{
-		string archiveFilePath = archiveFilePathLabel.Text;
+		string archiveFilePath = archiveFilePathEntry.Text;
 		if (File.Exists (archiveFilePath)) {
-			SecureString password = Tatooine.Tools.Encoding.stringToSecureString(archivePasswordLabel.Text);
-			archivePasswordLabel.Text = "";
+			SecureString password = Tatooine.Tools.Encoding.stringToSecureString(archivePasswordEntry.Text);
+			archivePasswordEntry.Text = "";
 			PasswordArchive archive = PasswordArchive.createWithFile(archiveFilePath, password);
 			ArchiveWindow archiveWindow = new ArchiveWindow(archive);
 			this.Hide();
@@ -40,7 +40,22 @@ public partial class MainWindow: Gtk.Window
 		} else {
 			GUIHelper.showError("Archive file", "The file specified does not exist, or is not accessible.");
 		}
+	}	
+
+	protected void createArchiveButtonClicked (object sender, EventArgs e)
+	{
+		if (newPasswordEntry.Text.Length > 0) {
+			SecureString password = Tatooine.Tools.Encoding.stringToSecureString(newPasswordEntry.Text);
+			newPasswordEntry.Text = "";
+			PasswordArchive newArchive = PasswordArchive.createNew(password);
+			ArchiveWindow archiveWindow = new ArchiveWindow(newArchive);
+			this.Hide();
+			archiveWindow.Show ();
+		} else {
+			GUIHelper.showError("New password", "You must enter a password for the new archive.");
+		}
 	}
+
 
 
 }

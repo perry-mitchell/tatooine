@@ -75,6 +75,8 @@
     <Compile Include="ArchiveWindow.cs" />
     <Compile Include="gtk-gui\TatooineDesktop.ArchiveWindow.cs" />
     <Compile Include="GUIHelper.cs" />
+    <Compile Include="UserInputDialog.cs" />
+    <Compile Include="gtk-gui\TatooineDesktop.UserInputDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
