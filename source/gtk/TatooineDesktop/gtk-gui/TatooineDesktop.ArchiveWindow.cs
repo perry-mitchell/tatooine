@@ -9,6 +9,8 @@ namespace TatooineDesktop
 		private global::Gtk.Action GroupAction;
 		private global::Gtk.Action EntryAction;
 		private global::Gtk.Action CreateNewAction;
+		private global::Gtk.Action SaveAction;
+		private global::Gtk.Action CreateNewAction1;
 		private global::Gtk.VBox vbox4;
 		private global::Gtk.MenuBar menubar1;
 		private global::Gtk.HBox hbox5;
@@ -16,7 +18,7 @@ namespace TatooineDesktop
 		private global::Gtk.TreeView groupTree;
 		private global::Gtk.VBox vbox5;
 		private global::Gtk.ScrolledWindow GtkScrolledWindow1;
-		private global::Gtk.TreeView treeview2;
+		private global::Gtk.TreeView entriesTree;
 		private global::Gtk.Statusbar statusbar1;
 		
 		protected virtual void Build ()
@@ -37,6 +39,12 @@ namespace TatooineDesktop
 			this.CreateNewAction = new global::Gtk.Action ("CreateNewAction", global::Mono.Unix.Catalog.GetString ("Create New"), null, null);
 			this.CreateNewAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Create New");
 			w1.Add (this.CreateNewAction, null);
+			this.SaveAction = new global::Gtk.Action ("SaveAction", global::Mono.Unix.Catalog.GetString ("Save"), null, null);
+			this.SaveAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Save");
+			w1.Add (this.SaveAction, null);
+			this.CreateNewAction1 = new global::Gtk.Action ("CreateNewAction1", global::Mono.Unix.Catalog.GetString ("Create New"), null, null);
+			this.CreateNewAction1.ShortLabel = global::Mono.Unix.Catalog.GetString ("Create New");
+			w1.Add (this.CreateNewAction1, null);
 			this.UIManager.InsertActionGroup (w1, 0);
 			this.AddAccelGroup (this.UIManager.AccelGroup);
 			this.WidthRequest = 640;
@@ -49,7 +57,7 @@ namespace TatooineDesktop
 			this.vbox4.Name = "vbox4";
 			this.vbox4.Spacing = 6;
 			// Container child vbox4.Gtk.Box+BoxChild
-			this.UIManager.AddUiFromString ("<ui><menubar name='menubar1'><menu name='ArchiveAction' action='ArchiveAction'/><menu name='GroupAction' action='GroupAction'><menuitem name='CreateNewAction' action='CreateNewAction'/></menu><menu name='EntryAction' action='EntryAction'/></menubar></ui>");
+			this.UIManager.AddUiFromString ("<ui><menubar name='menubar1'><menu name='ArchiveAction' action='ArchiveAction'><menuitem name='SaveAction' action='SaveAction'/></menu><menu name='GroupAction' action='GroupAction'><menuitem name='CreateNewAction' action='CreateNewAction'/></menu><menu name='EntryAction' action='EntryAction'><menuitem name='CreateNewAction1' action='CreateNewAction1'/></menu></menubar></ui>");
 			this.menubar1 = ((global::Gtk.MenuBar)(this.UIManager.GetWidget ("/menubar1")));
 			this.menubar1.Name = "menubar1";
 			this.vbox4.Add (this.menubar1);
@@ -82,10 +90,10 @@ namespace TatooineDesktop
 			this.GtkScrolledWindow1.Name = "GtkScrolledWindow1";
 			this.GtkScrolledWindow1.ShadowType = ((global::Gtk.ShadowType)(1));
 			// Container child GtkScrolledWindow1.Gtk.Container+ContainerChild
-			this.treeview2 = new global::Gtk.TreeView ();
-			this.treeview2.CanFocus = true;
-			this.treeview2.Name = "treeview2";
-			this.GtkScrolledWindow1.Add (this.treeview2);
+			this.entriesTree = new global::Gtk.TreeView ();
+			this.entriesTree.CanFocus = true;
+			this.entriesTree.Name = "entriesTree";
+			this.GtkScrolledWindow1.Add (this.entriesTree);
 			this.vbox5.Add (this.GtkScrolledWindow1);
 			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.GtkScrolledWindow1]));
 			w6.Position = 0;
@@ -113,6 +121,9 @@ namespace TatooineDesktop
 			this.Show ();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.windowClose);
 			this.CreateNewAction.Activated += new global::System.EventHandler (this.createNewGroupActivated);
+			this.SaveAction.Activated += new global::System.EventHandler (this.saveArchiveActivated);
+			this.CreateNewAction1.Activated += new global::System.EventHandler (this.createNewEntryActivated);
+			this.groupTree.CursorChanged += new global::System.EventHandler (this.rowSelected);
 		}
 	}
 }

@@ -9,22 +9,48 @@ namespace TatooineDesktop
 	{
 
 		protected PasswordArchive _archive;
+		protected string _archivePath;
 
+		protected List<string> _loadedGroupNames;
+		protected List<PasswordEntry> _loadedEntries;
+		protected string _selectedGroupHash;
 		protected ListStore _groupStore;
+		protected ListStore _entriesStore;
 
 		public ArchiveWindow (PasswordArchive archive) : 
 				base(Gtk.WindowType.Toplevel)
 		{
 			_archive = archive;
+			_archivePath = "";
+			_loadedGroupNames = new List<string>();
 
 			this.Build ();
 			this.setupGroupsTree();
+			this.setupEntriesTree();
 			this.loadArchive();
 		}
 
 		public void close()
 		{
 			Application.Quit ();
+		}
+
+		protected void createNewEntryActivated (object sender, EventArgs e)
+		{
+			UserInputDialog uid = new UserInputDialog("Entry title", "Enter the title of the new entry:", createNewEntryTitleEntered);
+			uid.Show();
+		}
+
+		protected void createNewEntryTitleEntered (UserInputDialog.UserInputAction actionTaken, string entryName)
+		{
+			if (actionTaken == UserInputDialog.UserInputAction.OK) {
+				if (entryName.Length > 0) {
+					_archive.createEntry(entryName, _selectedGroupHash);
+					loadGroup(_selectedGroupHash);
+				} else {
+					GUIHelper.showError("Entry title", "You must enter an entry title.");
+				}
+			}
 		}
 
 		protected void createNewGroupActivated (object sender, EventArgs e)
@@ -50,9 +76,50 @@ namespace TatooineDesktop
 			// Groups
 			_groupStore.Clear ();
 			Dictionary<string, string> groups = _archive.getGroups ();
+			_loadedGroupNames.Clear();
 			foreach (KeyValuePair<string, string> group in groups) {
 				_groupStore.AppendValues(group.Value);
+				_loadedGroupNames.Add (group.Value);
 			}
+		}
+
+		protected void loadGroup (string groupHash)
+		{
+			_selectedGroupHash = groupHash;
+			_entriesStore.Clear ();
+			_loadedEntries = _archive.getEntriesForGroup (groupHash);
+			foreach (PasswordEntry entry in _loadedEntries) {
+				_entriesStore.AppendValues(entry.getTitle(), entry.getProperty("username"));
+			}
+		}
+
+		public void setArchivePath(string path)
+		{
+			_archivePath = path;
+		}
+
+		protected void setupEntriesTree ()
+		{
+			Gtk.TreeViewColumn entryNameCol = new Gtk.TreeViewColumn ();
+        	entryNameCol.Title = "Entry";
+
+			Gtk.TreeViewColumn userNameCol = new Gtk.TreeViewColumn ();
+        	userNameCol.Title = "Username";
+
+			Gtk.CellRendererText entryNameCell = new Gtk.CellRendererText ();
+        	entryNameCol.PackStart (entryNameCell, true);
+
+			Gtk.CellRendererText userNameCell = new Gtk.CellRendererText ();
+        	userNameCol.PackStart (userNameCell, true);
+ 
+			entriesTree.AppendColumn(entryNameCol);
+			entriesTree.AppendColumn(userNameCol);
+			entryNameCol.AddAttribute (entryNameCell, "text", 0);
+			userNameCol.AddAttribute(userNameCell, "text", 1);
+ 
+       		_entriesStore = new Gtk.ListStore(typeof (string), typeof (string));
+ 
+			entriesTree.Model = _entriesStore;
 		}
 
 		protected void setupGroupsTree ()
@@ -76,6 +143,28 @@ namespace TatooineDesktop
 			this.close ();
 			args.RetVal = true;
 		}		
+
+		protected void saveArchiveActivated (object sender, EventArgs e)
+		{
+			throw new System.NotImplementedException ();
+		}		
+
+
+		protected void rowSelected (object sender, EventArgs e)
+		{
+			TreeSelection selection = (sender as TreeView).Selection;
+			TreeModel model;
+			TreeIter iter;
+
+			if (selection.GetSelected (out model, out iter)) {
+				int index = model.GetPath (iter).Indices [0];
+				string groupName = _loadedGroupNames[index];
+				string groupHash = _archive.getGroupHashForName(groupName);
+				loadGroup(groupHash);
+			}
+		}	
+
+
 
 	}
 }

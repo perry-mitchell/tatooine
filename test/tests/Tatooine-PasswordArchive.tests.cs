@@ -59,6 +59,19 @@ namespace TatooineTests {
 			File.Delete("test.tat");
 		}
 
+		[Test] public void testGetGroupHashForName() {
+			PasswordArchive archive = PasswordArchive.createNew(passwordSecure);
+			string hash = archive.createGroup("Amazing Group");
+			string testHash = archive.getGroupHashForName("Amazing Group");
+			StringAssert.IsMatch(hash, testHash);
+		}
+
+		[Test] public void testGroupNameExists() {
+			PasswordArchive archive = PasswordArchive.createNew(passwordSecure);
+			string hash = archive.createGroup("Amazing Group");
+			Assert.True(archive.groupNameExists("Amazing Group"));
+		}
+
 	}
 
 }

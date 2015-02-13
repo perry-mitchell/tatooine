@@ -397,6 +397,18 @@
         <property name="ShortLabel" translatable="yes">Create New</property>
         <signal name="Activated" handler="createNewGroupActivated" />
       </action>
+      <action id="SaveAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Save</property>
+        <property name="ShortLabel" translatable="yes">Save</property>
+        <signal name="Activated" handler="saveArchiveActivated" />
+      </action>
+      <action id="CreateNewAction1">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Create New</property>
+        <property name="ShortLabel" translatable="yes">Create New</property>
+        <signal name="Activated" handler="createNewEntryActivated" />
+      </action>
     </action-group>
     <property name="MemberName" />
     <property name="WidthRequest">640</property>
@@ -412,11 +424,15 @@
           <widget class="Gtk.MenuBar" id="menubar1">
             <property name="MemberName" />
             <node name="__gtksharp_127_Stetic_Editor_ActionMenuBar" type="Menubar">
-              <node type="Menu" action="ArchiveAction" />
+              <node type="Menu" action="ArchiveAction">
+                <node type="Menuitem" action="SaveAction" />
+              </node>
               <node type="Menu" action="GroupAction">
                 <node type="Menuitem" action="CreateNewAction" />
               </node>
-              <node type="Menu" action="EntryAction" />
+              <node type="Menu" action="EntryAction">
+                <node type="Menuitem" action="CreateNewAction1" />
+              </node>
             </node>
           </widget>
           <packing>
@@ -439,6 +455,7 @@
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="ShowScrollbars">True</property>
+                    <signal name="CursorChanged" handler="rowSelected" />
                   </widget>
                 </child>
               </widget>
@@ -456,7 +473,7 @@
                     <property name="MemberName" />
                     <property name="ShadowType">In</property>
                     <child>
-                      <widget class="Gtk.TreeView" id="treeview2">
+                      <widget class="Gtk.TreeView" id="entriesTree">
                         <property name="MemberName" />
                         <property name="CanFocus">True</property>
                         <property name="ShowScrollbars">True</property>

@@ -35,6 +35,7 @@ public partial class MainWindow: Gtk.Window
 			archivePasswordEntry.Text = "";
 			PasswordArchive archive = PasswordArchive.createWithFile(archiveFilePath, password);
 			ArchiveWindow archiveWindow = new ArchiveWindow(archive);
+			archiveWindow.setArchivePath(archiveFilePath);
 			this.Hide();
 			archiveWindow.Show ();
 		} else {
