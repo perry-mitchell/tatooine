@@ -17,8 +17,7 @@ namespace TatooineDesktop
 		protected ListStore _groupStore;
 		protected ListStore _entriesStore;
 
-		public ArchiveWindow (PasswordArchive archive) : 
-				base(Gtk.WindowType.Toplevel)
+		public ArchiveWindow (PasswordArchive archive) : base(Gtk.WindowType.Toplevel)
 		{
 			_archive = archive;
 			_archivePath = "";

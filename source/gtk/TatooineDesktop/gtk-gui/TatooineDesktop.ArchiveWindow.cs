@@ -5,22 +5,57 @@ namespace TatooineDesktop
 	public partial class ArchiveWindow
 	{
 		private global::Gtk.UIManager UIManager;
-		private global::Gtk.Action ArchiveAction;
-		private global::Gtk.Action GroupAction;
-		private global::Gtk.Action EntryAction;
-		private global::Gtk.Action CreateNewAction;
-		private global::Gtk.Action SaveAction;
-		private global::Gtk.Action CreateNewAction1;
-		private global::Gtk.VBox vbox4;
-		private global::Gtk.MenuBar menubar1;
-		private global::Gtk.HBox hbox5;
-		private global::Gtk.ScrolledWindow GtkScrolledWindow;
-		private global::Gtk.TreeView groupTree;
-		private global::Gtk.VBox vbox5;
-		private global::Gtk.ScrolledWindow GtkScrolledWindow1;
-		private global::Gtk.TreeView entriesTree;
-		private global::Gtk.Statusbar statusbar1;
 		
+		private global::Gtk.Action ArchiveAction;
+		
+		private global::Gtk.Action GroupAction;
+		
+		private global::Gtk.Action EntryAction;
+		
+		private global::Gtk.Action CreateNewAction;
+		
+		private global::Gtk.Action saveAction;
+		
+		private global::Gtk.Action CreateNewAction1;
+		
+		private global::Gtk.Action addAction;
+		
+		private global::Gtk.Action editAction;
+		
+		private global::Gtk.Action deleteAction;
+		
+		private global::Gtk.Action saveAsAction;
+		
+		private global::Gtk.Action homeAction;
+		
+		private global::Gtk.Action disconnectAction1;
+		
+		private global::Gtk.VBox vbox4;
+		
+		private global::Gtk.MenuBar menubar1;
+		
+		private global::Gtk.HBox hbox5;
+		
+		private global::Gtk.ScrolledWindow GtkScrolledWindow;
+		
+		private global::Gtk.TreeView groupTree;
+		
+		private global::Gtk.VBox vbox5;
+		
+		private global::Gtk.ScrolledWindow GtkScrolledWindow1;
+		
+		private global::Gtk.TreeView entriesTree;
+		
+		private global::Gtk.VBox vbox2;
+		
+		private global::Gtk.ScrolledWindow GtkScrolledWindow2;
+		
+		private global::Gtk.TreeView treeview1;
+		
+		private global::Gtk.Toolbar toolbar1;
+		
+		private global::Gtk.Statusbar statusbar1;
+
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
@@ -39,12 +74,27 @@ namespace TatooineDesktop
 			this.CreateNewAction = new global::Gtk.Action ("CreateNewAction", global::Mono.Unix.Catalog.GetString ("Create New"), null, null);
 			this.CreateNewAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Create New");
 			w1.Add (this.CreateNewAction, null);
-			this.SaveAction = new global::Gtk.Action ("SaveAction", global::Mono.Unix.Catalog.GetString ("Save"), null, null);
-			this.SaveAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Save");
-			w1.Add (this.SaveAction, null);
+			this.saveAction = new global::Gtk.Action ("saveAction", global::Mono.Unix.Catalog.GetString ("Save"), null, "gtk-save");
+			this.saveAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Save");
+			w1.Add (this.saveAction, null);
 			this.CreateNewAction1 = new global::Gtk.Action ("CreateNewAction1", global::Mono.Unix.Catalog.GetString ("Create New"), null, null);
 			this.CreateNewAction1.ShortLabel = global::Mono.Unix.Catalog.GetString ("Create New");
 			w1.Add (this.CreateNewAction1, null);
+			this.addAction = new global::Gtk.Action ("addAction", null, null, "gtk-add");
+			w1.Add (this.addAction, null);
+			this.editAction = new global::Gtk.Action ("editAction", null, null, "gtk-edit");
+			w1.Add (this.editAction, null);
+			this.deleteAction = new global::Gtk.Action ("deleteAction", null, null, "gtk-delete");
+			w1.Add (this.deleteAction, null);
+			this.saveAsAction = new global::Gtk.Action ("saveAsAction", global::Mono.Unix.Catalog.GetString ("Save As"), null, "gtk-save-as");
+			this.saveAsAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Save As");
+			w1.Add (this.saveAsAction, null);
+			this.homeAction = new global::Gtk.Action ("homeAction", global::Mono.Unix.Catalog.GetString ("Log Out"), null, "gtk-home");
+			this.homeAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Log Out");
+			w1.Add (this.homeAction, null);
+			this.disconnectAction1 = new global::Gtk.Action ("disconnectAction1", global::Mono.Unix.Catalog.GetString ("Exit"), null, "gtk-disconnect");
+			this.disconnectAction1.ShortLabel = global::Mono.Unix.Catalog.GetString ("Exit");
+			w1.Add (this.disconnectAction1, null);
 			this.UIManager.InsertActionGroup (w1, 0);
 			this.AddAccelGroup (this.UIManager.AccelGroup);
 			this.WidthRequest = 640;
@@ -57,7 +107,7 @@ namespace TatooineDesktop
 			this.vbox4.Name = "vbox4";
 			this.vbox4.Spacing = 6;
 			// Container child vbox4.Gtk.Box+BoxChild
-			this.UIManager.AddUiFromString ("<ui><menubar name='menubar1'><menu name='ArchiveAction' action='ArchiveAction'><menuitem name='SaveAction' action='SaveAction'/></menu><menu name='GroupAction' action='GroupAction'><menuitem name='CreateNewAction' action='CreateNewAction'/></menu><menu name='EntryAction' action='EntryAction'><menuitem name='CreateNewAction1' action='CreateNewAction1'/></menu></menubar></ui>");
+			this.UIManager.AddUiFromString ("<ui><menubar name='menubar1'><menu name='ArchiveAction' action='ArchiveAction'><menuitem name='saveAction' action='saveAction'/><menuitem name='saveAsAction' action='saveAsAction'/><menuitem name='homeAction' action='homeAction'/><menuitem name='disconnectAction1' action='disconnectAction1'/></menu><menu name='GroupAction' action='GroupAction'><menuitem name='CreateNewAction' action='CreateNewAction'/></menu><menu name='EntryAction' action='EntryAction'><menuitem name='CreateNewAction1' action='CreateNewAction1'/></menu></menubar></ui>");
 			this.menubar1 = ((global::Gtk.MenuBar)(this.UIManager.GetWidget ("/menubar1")));
 			this.menubar1.Name = "menubar1";
 			this.vbox4.Add (this.menubar1);
@@ -97,21 +147,50 @@ namespace TatooineDesktop
 			this.vbox5.Add (this.GtkScrolledWindow1);
 			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.GtkScrolledWindow1]));
 			w6.Position = 0;
+			// Container child vbox5.Gtk.Box+BoxChild
+			this.vbox2 = new global::Gtk.VBox ();
+			this.vbox2.Name = "vbox2";
+			this.vbox2.Spacing = 6;
+			// Container child vbox2.Gtk.Box+BoxChild
+			this.GtkScrolledWindow2 = new global::Gtk.ScrolledWindow ();
+			this.GtkScrolledWindow2.Name = "GtkScrolledWindow2";
+			this.GtkScrolledWindow2.ShadowType = ((global::Gtk.ShadowType)(1));
+			// Container child GtkScrolledWindow2.Gtk.Container+ContainerChild
+			this.treeview1 = new global::Gtk.TreeView ();
+			this.treeview1.CanFocus = true;
+			this.treeview1.Name = "treeview1";
+			this.GtkScrolledWindow2.Add (this.treeview1);
+			this.vbox2.Add (this.GtkScrolledWindow2);
+			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.GtkScrolledWindow2]));
+			w8.Position = 0;
+			// Container child vbox2.Gtk.Box+BoxChild
+			this.UIManager.AddUiFromString ("<ui><toolbar name='toolbar1'><toolitem name='addAction' action='addAction'/><toolitem name='editAction' action='editAction'/><toolitem name='deleteAction' action='deleteAction'/></toolbar></ui>");
+			this.toolbar1 = ((global::Gtk.Toolbar)(this.UIManager.GetWidget ("/toolbar1")));
+			this.toolbar1.Name = "toolbar1";
+			this.toolbar1.ShowArrow = false;
+			this.vbox2.Add (this.toolbar1);
+			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.toolbar1]));
+			w9.Position = 1;
+			w9.Expand = false;
+			w9.Fill = false;
+			this.vbox5.Add (this.vbox2);
+			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.vbox2]));
+			w10.Position = 1;
 			this.hbox5.Add (this.vbox5);
-			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hbox5 [this.vbox5]));
-			w7.Position = 1;
+			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hbox5 [this.vbox5]));
+			w11.Position = 1;
 			this.vbox4.Add (this.hbox5);
-			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.hbox5]));
-			w8.Position = 1;
+			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.hbox5]));
+			w12.Position = 1;
 			// Container child vbox4.Gtk.Box+BoxChild
 			this.statusbar1 = new global::Gtk.Statusbar ();
 			this.statusbar1.Name = "statusbar1";
 			this.statusbar1.Spacing = 6;
 			this.vbox4.Add (this.statusbar1);
-			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.statusbar1]));
-			w9.Position = 2;
-			w9.Expand = false;
-			w9.Fill = false;
+			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.statusbar1]));
+			w13.Position = 2;
+			w13.Expand = false;
+			w13.Fill = false;
 			this.Add (this.vbox4);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
@@ -121,7 +200,7 @@ namespace TatooineDesktop
 			this.Show ();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.windowClose);
 			this.CreateNewAction.Activated += new global::System.EventHandler (this.createNewGroupActivated);
-			this.SaveAction.Activated += new global::System.EventHandler (this.saveArchiveActivated);
+			this.saveAction.Activated += new global::System.EventHandler (this.saveArchiveActivated);
 			this.CreateNewAction1.Activated += new global::System.EventHandler (this.createNewEntryActivated);
 			this.groupTree.CursorChanged += new global::System.EventHandler (this.rowSelected);
 		}
