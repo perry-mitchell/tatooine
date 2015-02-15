@@ -7,5 +7,5 @@
 *.resources
 test-results/
 
-TatooineDesktop/bin/Debug/**/*
 TatooineDesktop/bin/Debug/*.*
+TatooineDesktop/obj/x86/Debug/*.8
