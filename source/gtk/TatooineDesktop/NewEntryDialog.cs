@@ -17,6 +17,7 @@ namespace TatooineDesktop {
 
 		protected void cancelButtonClicked (object sender, EventArgs e) {
 			_callback(NewEntryAction.Cancel, null);
+			this.Destroy();
 		}
 
 		protected void okButtonClicked (object sender, EventArgs e) {
@@ -26,6 +27,7 @@ namespace TatooineDesktop {
 			values.Add("password", passwordEntry.Text);
 			values.Add("uri", uriEntry.Text);
 			_callback(NewEntryAction.OK, values);
+			this.Destroy();
 		}
 
 
