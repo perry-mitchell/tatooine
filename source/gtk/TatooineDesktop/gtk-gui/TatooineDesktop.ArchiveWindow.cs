@@ -179,6 +179,7 @@ namespace TatooineDesktop
 			this.CreateNewAction1.Activated += new global::System.EventHandler (this.createNewEntryActivated);
 			this.groupTree.CursorChanged += new global::System.EventHandler (this.groupRowSelected);
 			this.entriesTree.CursorChanged += new global::System.EventHandler (this.entryRowSelected);
+			this.entryPropertiesTree.RowActivated += new global::Gtk.RowActivatedHandler (this.entryPropertyRowActivated);
 		}
 	}
 }

@@ -11,6 +11,8 @@ namespace TatooineDesktop
 		protected PasswordArchive _archive;
 		protected string _archivePath;
 
+		protected PasswordEntry _activatedPasswordEntry;
+		protected string _activatedPasswordEntryProperty;
 		protected List<string> _loadedGroupNames;
 		protected List<PasswordEntry> _loadedEntries;
 		protected List<string> _loadedEntryProperties;
@@ -23,6 +25,7 @@ namespace TatooineDesktop
 		{
 			_archive = archive;
 			_archivePath = "";
+			_activatedPasswordEntryProperty = "";
 			_loadedGroupNames = new List<string>();
 			_loadedEntryProperties = new List<string>();
 
@@ -74,6 +77,31 @@ namespace TatooineDesktop
 			}
 		}
 
+		protected void entryPropertyRowActivated (object o, RowActivatedArgs args)
+		{
+			TreeSelection selection = (o as TreeView).Selection;
+			TreeModel model;
+			TreeIter iter;
+
+			if (selection.GetSelected (out model, out iter)) {
+				int index = model.GetPath (iter).Indices [0];
+				_activatedPasswordEntryProperty = _loadedEntryProperties[index];
+				UserInputDialog uid = new UserInputDialog("Set value", "Set: '" + _activatedPasswordEntryProperty + "':", entryPropertyRowEdited);
+				uid.setText(_activatedPasswordEntry.getProperty(_activatedPasswordEntryProperty));
+				uid.Show ();
+			}
+		}
+
+		protected void entryPropertyRowEdited (UserInputDialog.UserInputAction actionTaken, string newValue)
+		{
+			if (actionTaken == UserInputDialog.UserInputAction.OK) {
+				if ((_activatedPasswordEntry != null) && (_activatedPasswordEntryProperty.Length > 0)) {
+					_activatedPasswordEntry.setProperty(_activatedPasswordEntryProperty, newValue);
+					loadEntry(_activatedPasswordEntry);
+				}
+			}
+		}
+
 		protected void entryRowSelected (object sender, EventArgs e)
 		{
 			TreeSelection selection = (sender as TreeView).Selection;
@@ -115,9 +143,14 @@ namespace TatooineDesktop
 
 		protected void loadEntry (PasswordEntry entry)
 		{
-			Dictionary<string, string> propertyDict = entry.getProperties();
+			_activatedPasswordEntry = entry;
+			_activatedPasswordEntryProperty = "";
 			_entryPropertiesStore.Clear ();
 			_loadedEntryProperties.Clear ();
+			if (entry == null) {
+				return;
+			}
+			Dictionary<string, string> propertyDict = entry.getProperties();
 			foreach (KeyValuePair<string, string> prop in propertyDict) {
 				_entryPropertiesStore.AppendValues(prop.Key, prop.Value);
 				_loadedEntryProperties.Add (prop.Key);
@@ -126,6 +159,7 @@ namespace TatooineDesktop
 
 		protected void loadGroup (string groupHash)
 		{
+			loadEntry(null);
 			_selectedGroupHash = groupHash;
 			_entriesStore.Clear ();
 			_loadedEntries = _archive.getEntriesForGroup (groupHash);

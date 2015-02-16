@@ -31,6 +31,10 @@ namespace TatooineDesktop
 			this.Destroy();
 		}
 
+		public void setText(string text)
+		{
+			textEntry.Text = text;
+		}
 
 	}
 }
