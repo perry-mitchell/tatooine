@@ -13,19 +13,23 @@ namespace TatooineDesktop
 
 		protected List<string> _loadedGroupNames;
 		protected List<PasswordEntry> _loadedEntries;
+		protected List<string> _loadedEntryProperties;
 		protected string _selectedGroupHash;
 		protected ListStore _groupStore;
 		protected ListStore _entriesStore;
+		protected ListStore _entryPropertiesStore;
 
 		public ArchiveWindow (PasswordArchive archive) : base(Gtk.WindowType.Toplevel)
 		{
 			_archive = archive;
 			_archivePath = "";
 			_loadedGroupNames = new List<string>();
+			_loadedEntryProperties = new List<string>();
 
 			this.Build ();
 			this.setupGroupsTree();
 			this.setupEntriesTree();
+			this.setupEntryPropertiesTree();
 			this.loadArchive();
 		}
 
@@ -70,6 +74,33 @@ namespace TatooineDesktop
 			}
 		}
 
+		protected void entryRowSelected (object sender, EventArgs e)
+		{
+			TreeSelection selection = (sender as TreeView).Selection;
+			TreeModel model;
+			TreeIter iter;
+
+			if (selection.GetSelected (out model, out iter)) {
+				int index = model.GetPath (iter).Indices [0];
+				PasswordEntry entry = _loadedEntries[index];
+				loadEntry(entry);
+			}
+		}
+
+		protected void groupRowSelected (object sender, EventArgs e)
+		{
+			TreeSelection selection = (sender as TreeView).Selection;
+			TreeModel model;
+			TreeIter iter;
+
+			if (selection.GetSelected (out model, out iter)) {
+				int index = model.GetPath (iter).Indices [0];
+				string groupName = _loadedGroupNames[index];
+				string groupHash = _archive.getGroupHashForName(groupName);
+				loadGroup(groupHash);
+			}
+		}
+
 		protected void loadArchive ()
 		{
 			// Groups
@@ -82,6 +113,17 @@ namespace TatooineDesktop
 			}
 		}
 
+		protected void loadEntry (PasswordEntry entry)
+		{
+			Dictionary<string, string> propertyDict = entry.getProperties();
+			_entryPropertiesStore.Clear ();
+			_loadedEntryProperties.Clear ();
+			foreach (KeyValuePair<string, string> prop in propertyDict) {
+				_entryPropertiesStore.AppendValues(prop.Key, prop.Value);
+				_loadedEntryProperties.Add (prop.Key);
+			}
+		}
+
 		protected void loadGroup (string groupHash)
 		{
 			_selectedGroupHash = groupHash;
@@ -89,20 +131,6 @@ namespace TatooineDesktop
 			_loadedEntries = _archive.getEntriesForGroup (groupHash);
 			foreach (PasswordEntry entry in _loadedEntries) {
 				_entriesStore.AppendValues(entry.getTitle(), entry.getProperty("username"));
-			}
-		}
-
-		protected void rowSelected (object sender, EventArgs e)
-		{
-			TreeSelection selection = (sender as TreeView).Selection;
-			TreeModel model;
-			TreeIter iter;
-
-			if (selection.GetSelected (out model, out iter)) {
-				int index = model.GetPath (iter).Indices [0];
-				string groupName = _loadedGroupNames[index];
-				string groupHash = _archive.getGroupHashForName(groupName);
-				loadGroup(groupHash);
 			}
 		}
 
@@ -132,6 +160,30 @@ namespace TatooineDesktop
 		public void setArchivePath(string path)
 		{
 			_archivePath = path;
+		}
+
+		protected void setupEntryPropertiesTree ()
+		{
+			Gtk.TreeViewColumn propertyCol = new Gtk.TreeViewColumn ();
+        	propertyCol.Title = "Property";
+
+			Gtk.TreeViewColumn valueCol = new Gtk.TreeViewColumn ();
+        	valueCol.Title = "Value";
+
+			Gtk.CellRendererText propertyCell = new Gtk.CellRendererText ();
+        	propertyCol.PackStart (propertyCell, true);
+
+			Gtk.CellRendererText valueCell = new Gtk.CellRendererText ();
+        	valueCol.PackStart (valueCell, true);
+ 
+			entryPropertiesTree.AppendColumn(propertyCol);
+			entryPropertiesTree.AppendColumn(valueCol);
+			propertyCol.AddAttribute(propertyCell, "text", 0);
+			valueCol.AddAttribute(valueCell, "text", 1);
+ 
+       		_entryPropertiesStore = new Gtk.ListStore(typeof (string), typeof (string));
+ 
+			entryPropertiesTree.Model = _entryPropertiesStore;
 		}
 
 		protected void setupEntriesTree ()

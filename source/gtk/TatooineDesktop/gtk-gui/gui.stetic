@@ -489,7 +489,7 @@
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="ShowScrollbars">True</property>
-                    <signal name="CursorChanged" handler="rowSelected" />
+                    <signal name="CursorChanged" handler="groupRowSelected" />
                   </widget>
                 </child>
               </widget>
@@ -511,6 +511,7 @@
                         <property name="MemberName" />
                         <property name="CanFocus">True</property>
                         <property name="ShowScrollbars">True</property>
+                        <signal name="CursorChanged" handler="entryRowSelected" />
                       </widget>
                     </child>
                   </widget>
@@ -528,7 +529,7 @@
                         <property name="MemberName" />
                         <property name="ShadowType">In</property>
                         <child>
-                          <widget class="Gtk.TreeView" id="treeview1">
+                          <widget class="Gtk.TreeView" id="entryPropertiesTree">
                             <property name="MemberName" />
                             <property name="CanFocus">True</property>
                             <property name="ShowScrollbars">True</property>

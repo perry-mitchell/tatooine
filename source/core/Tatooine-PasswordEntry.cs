@@ -20,6 +20,15 @@ namespace Tatooine {
 			return (data.ContainsKey("group")) ? (string)data["group"] : "";
 		}
 
+		public Dictionary<string, string> getProperties() {
+			if (data.ContainsKey("properties")) {
+				Hashtable properties = (Hashtable)data["properties"];
+				return Tools.Encoding.hashtableToDictionary<string, string>(properties);
+			} else {
+				return new Dictionary<string, string>();
+			}
+		}
+
 		public string getProperty(string propKey) {
 			if (data.ContainsKey("properties")) {
 				Hashtable properties = (Hashtable)data["properties"];
@@ -29,13 +38,7 @@ namespace Tatooine {
 		}
 
 		public List<string> getPropertyNames() {
-			if (data.ContainsKey("properties")) {
-				Hashtable properties = (Hashtable)data["properties"];
-				Dictionary<string, string> props = Tools.Encoding.hashtableToDictionary<string, string>(properties);
-				return props.Keys.ToList();
-			} else {
-				return new List<string>();
-			}
+			return getProperties().Keys.ToList();
 		}
 
 		public string getTitle() {

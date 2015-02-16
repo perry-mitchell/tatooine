@@ -5,57 +5,32 @@ namespace TatooineDesktop
 	public partial class ArchiveWindow
 	{
 		private global::Gtk.UIManager UIManager;
-		
 		private global::Gtk.Action ArchiveAction;
-		
 		private global::Gtk.Action GroupAction;
-		
 		private global::Gtk.Action EntryAction;
-		
 		private global::Gtk.Action CreateNewAction;
-		
 		private global::Gtk.Action saveAction;
-		
 		private global::Gtk.Action CreateNewAction1;
-		
 		private global::Gtk.Action addAction;
-		
 		private global::Gtk.Action editAction;
-		
 		private global::Gtk.Action deleteAction;
-		
 		private global::Gtk.Action saveAsAction;
-		
 		private global::Gtk.Action homeAction;
-		
 		private global::Gtk.Action disconnectAction1;
-		
 		private global::Gtk.VBox vbox4;
-		
 		private global::Gtk.MenuBar menubar1;
-		
 		private global::Gtk.HBox hbox5;
-		
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
-		
 		private global::Gtk.TreeView groupTree;
-		
 		private global::Gtk.VBox vbox5;
-		
 		private global::Gtk.ScrolledWindow GtkScrolledWindow1;
-		
 		private global::Gtk.TreeView entriesTree;
-		
 		private global::Gtk.VBox vbox2;
-		
 		private global::Gtk.ScrolledWindow GtkScrolledWindow2;
-		
-		private global::Gtk.TreeView treeview1;
-		
+		private global::Gtk.TreeView entryPropertiesTree;
 		private global::Gtk.Toolbar toolbar1;
-		
 		private global::Gtk.Statusbar statusbar1;
-
+		
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
@@ -156,10 +131,10 @@ namespace TatooineDesktop
 			this.GtkScrolledWindow2.Name = "GtkScrolledWindow2";
 			this.GtkScrolledWindow2.ShadowType = ((global::Gtk.ShadowType)(1));
 			// Container child GtkScrolledWindow2.Gtk.Container+ContainerChild
-			this.treeview1 = new global::Gtk.TreeView ();
-			this.treeview1.CanFocus = true;
-			this.treeview1.Name = "treeview1";
-			this.GtkScrolledWindow2.Add (this.treeview1);
+			this.entryPropertiesTree = new global::Gtk.TreeView ();
+			this.entryPropertiesTree.CanFocus = true;
+			this.entryPropertiesTree.Name = "entryPropertiesTree";
+			this.GtkScrolledWindow2.Add (this.entryPropertiesTree);
 			this.vbox2.Add (this.GtkScrolledWindow2);
 			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.GtkScrolledWindow2]));
 			w8.Position = 0;
@@ -202,7 +177,8 @@ namespace TatooineDesktop
 			this.CreateNewAction.Activated += new global::System.EventHandler (this.createNewGroupActivated);
 			this.saveAction.Activated += new global::System.EventHandler (this.saveArchiveActivated);
 			this.CreateNewAction1.Activated += new global::System.EventHandler (this.createNewEntryActivated);
-			this.groupTree.CursorChanged += new global::System.EventHandler (this.rowSelected);
+			this.groupTree.CursorChanged += new global::System.EventHandler (this.groupRowSelected);
+			this.entriesTree.CursorChanged += new global::System.EventHandler (this.entryRowSelected);
 		}
 	}
 }
