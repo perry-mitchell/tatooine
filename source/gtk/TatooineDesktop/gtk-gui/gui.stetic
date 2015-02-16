@@ -389,10 +389,10 @@
         <property name="Label" translatable="yes">Entry</property>
         <property name="ShortLabel" translatable="yes">Entry</property>
       </action>
-      <action id="CreateNewAction">
+      <action id="CreateNewGroupAction">
         <property name="Type">Action</property>
-        <property name="Label" translatable="yes">Create New</property>
-        <property name="ShortLabel" translatable="yes">Create New</property>
+        <property name="Label" translatable="yes">Create New Group</property>
+        <property name="ShortLabel" translatable="yes">Create New Group</property>
         <signal name="Activated" handler="createNewGroupActivated" />
       </action>
       <action id="saveAction">
@@ -402,10 +402,10 @@
         <property name="StockId">gtk-save</property>
         <signal name="Activated" handler="saveArchiveActivated" />
       </action>
-      <action id="CreateNewAction1">
+      <action id="CreateNewEntryAction">
         <property name="Type">Action</property>
-        <property name="Label" translatable="yes">Create New</property>
-        <property name="ShortLabel" translatable="yes">Create New</property>
+        <property name="Label" translatable="yes">Create New Entry</property>
+        <property name="ShortLabel" translatable="yes">Create New Entry</property>
         <signal name="Activated" handler="createNewEntryActivated" />
       </action>
       <action id="addAction">
@@ -465,10 +465,10 @@
                 <node type="Menuitem" action="disconnectAction" />
               </node>
               <node type="Menu" action="GroupAction">
-                <node type="Menuitem" action="CreateNewAction" />
+                <node type="Menuitem" action="CreateNewGroupAction" />
               </node>
               <node type="Menu" action="EntryAction">
-                <node type="Menuitem" action="CreateNewAction1" />
+                <node type="Menuitem" action="CreateNewEntryAction" />
               </node>
             </node>
           </widget>
@@ -493,6 +493,7 @@
                     <property name="CanFocus">True</property>
                     <property name="ShowScrollbars">True</property>
                     <signal name="CursorChanged" handler="groupRowSelected" />
+                    <signal name="ButtonPressEvent" handler="groupListButtonPress" />
                   </widget>
                 </child>
               </widget>

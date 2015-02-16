@@ -7,6 +7,7 @@ namespace TatooineDesktop
 {
 	public partial class ArchiveWindow : Gtk.Window
 	{
+		private const int MOUSE_BUTTON_RIGHT = 3;
 
 		protected PasswordArchive _archive;
 		protected string _archivePath;
@@ -59,10 +60,13 @@ namespace TatooineDesktop
 			}
 		}
 
-		protected void createNewGroupActivated (object sender, EventArgs e)
-		{
+		protected void createNewGroup() {
 			UserInputDialog uid = new UserInputDialog("Group name", "Enter the name of the new group:", createNewGroupNameEntered);
 			uid.Show();
+		}
+
+		protected void createNewGroupActivated (object sender, EventArgs e) {
+			createNewGroup();
 		}
 
 		protected void createNewGroupNameEntered (UserInputDialog.UserInputAction actionTaken, string groupName)
@@ -119,6 +123,13 @@ namespace TatooineDesktop
 		{
 			// todo: ask for save
 			close ();
+		}
+
+		[ GLib.ConnectBefore ]
+		protected void groupListButtonPress (object o, ButtonPressEventArgs args) {
+			if (args.Event.Button == MOUSE_BUTTON_RIGHT) {
+				showGroupsPopup();
+			}
 		}
 
 		protected void groupRowSelected (object sender, EventArgs e)
@@ -271,12 +282,26 @@ namespace TatooineDesktop
 			groupTree.Model = _groupStore;
 		}
 
+		protected void showGroupsPopup ()
+		{
+			Gtk.Menu groupsPopup = new Gtk.Menu();
+
+			Gtk.MenuItem newGroupItem = new Gtk.MenuItem("Create new group");
+			newGroupItem.Activated += delegate(object sender, EventArgs e) {
+				createNewGroup();
+			};
+			groupsPopup.Append(newGroupItem);
+
+			groupsPopup.ShowAll();
+			groupsPopup.Popup();
+		}
+
 		protected void windowClose (object o, Gtk.DeleteEventArgs args)
 		{
 			this.close ();
 			args.RetVal = true;
 		}		
-
+			
 	}
 }
 
