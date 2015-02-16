@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Security;
 using System.Security.Cryptography;
+using System.Collections.Generic;
 
 using NUnit.Framework;
 using Tatooine;
@@ -66,10 +67,30 @@ namespace TatooineTests {
 			StringAssert.IsMatch(hash, testHash);
 		}
 
+		[Test] public void testGetGroupsGetsAllGroups() {
+			PasswordArchive archive = PasswordArchive.createNew(passwordSecure);
+			string hash1 = archive.createGroup("Group 1");
+			string hash2 = archive.createGroup("Group 2");
+			Dictionary<string, string> groups = archive.getGroups();
+			Assert.True(groups.ContainsValue("Group 1"));
+			Assert.True(groups.ContainsValue("Group 2"));
+		}
+
 		[Test] public void testGroupNameExists() {
 			PasswordArchive archive = PasswordArchive.createNew(passwordSecure);
 			string hash = archive.createGroup("Amazing Group");
 			Assert.True(archive.groupNameExists("Amazing Group"));
+		}
+
+		[Test] public void testSetArchiveTitlePersists() {
+			PasswordArchive archive = PasswordArchive.createNew(passwordSecure);
+			archive.setArchiveTitle("my passwords");
+			archive.writeToFile("test.tat");
+			Assert.True(File.Exists("test.tat"));
+
+			PasswordArchive archive2 = PasswordArchive.createWithFile("test.tat", passwordSecure);
+			StringAssert.IsMatch(archive2.getArchiveTitle(), "my passwords");
+			File.Delete("test.tat");
 		}
 
 	}
