@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C4938442-D681-4B88-82FB-0D983DA1736D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -72,6 +72,8 @@
     <Compile Include="GUIHelper.cs" />
     <Compile Include="UserInputDialog.cs" />
     <Compile Include="gtk-gui\TatooineDesktop.UserInputDialog.cs" />
+    <Compile Include="NewEntryDialog.cs" />
+    <Compile Include="gtk-gui\TatooineDesktop.NewEntryDialog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
