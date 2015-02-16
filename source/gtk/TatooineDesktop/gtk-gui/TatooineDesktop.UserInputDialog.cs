@@ -5,11 +5,15 @@ namespace TatooineDesktop
 	public partial class UserInputDialog
 	{
 		private global::Gtk.VBox vbox7;
-		private global::Gtk.Label messageLabel;
-		private global::Gtk.Entry textEntry;
-		private global::Gtk.Button buttonCancel;
-		private global::Gtk.Button buttonOk;
 		
+		private global::Gtk.Label messageLabel;
+		
+		private global::Gtk.Entry textEntry;
+		
+		private global::Gtk.Button buttonCancel;
+		
+		private global::Gtk.Button buttonOk;
+
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
@@ -17,7 +21,6 @@ namespace TatooineDesktop
 			this.WidthRequest = 320;
 			this.HeightRequest = 170;
 			this.Name = "TatooineDesktop.UserInputDialog";
-			this.Title = global::Mono.Unix.Catalog.GetString ("dialog1");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			this.Modal = true;
 			this.Resizable = false;

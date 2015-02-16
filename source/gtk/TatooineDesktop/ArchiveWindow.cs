@@ -42,17 +42,22 @@ namespace TatooineDesktop
 			Application.Quit ();
 		}
 
-		protected void createNewEntryActivated (object sender, EventArgs e)
-		{
-			UserInputDialog uid = new UserInputDialog("Entry title", "Enter the title of the new entry:", createNewEntryTitleEntered);
-			uid.Show();
+		protected void createNewEntryActivated (object sender, EventArgs e) {
+			NewEntryDialog ned = new NewEntryDialog(createNewEntryDataEntered);
+			ned.Show();
 		}
 
-		protected void createNewEntryTitleEntered (UserInputDialog.UserInputAction actionTaken, string entryName)
-		{
-			if (actionTaken == UserInputDialog.UserInputAction.OK) {
-				if (entryName.Length > 0) {
-					_archive.createEntry(entryName, _selectedGroupHash);
+		protected void createNewEntryDataEntered (NewEntryDialog.NewEntryAction actionTaken, Dictionary<string, string> enteredData) {
+			if (actionTaken == NewEntryDialog.NewEntryAction.OK) {
+				string title = enteredData ["title"];
+				string username = enteredData ["username"];
+				string password = enteredData ["password"];
+				string uri = enteredData ["uri"];
+				if (title.Length > 0) {
+					PasswordEntry newEntry = _archive.createEntry(title, _selectedGroupHash);
+					newEntry.setProperty("username", username);
+					newEntry.setProperty("password", password);
+					newEntry.setProperty("uri", uri);
 					loadGroup(_selectedGroupHash);
 				} else {
 					GUIHelper.showError("Entry title", "You must enter an entry title.");
