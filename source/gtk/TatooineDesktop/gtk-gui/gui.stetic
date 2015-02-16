@@ -427,6 +427,7 @@
         <property name="Label" translatable="yes">Save As</property>
         <property name="ShortLabel" translatable="yes">Save As</property>
         <property name="StockId">gtk-save-as</property>
+        <signal name="Activated" handler="saveAsButtonActivated" />
       </action>
       <action id="homeAction">
         <property name="Type">Action</property>
@@ -434,11 +435,12 @@
         <property name="ShortLabel" translatable="yes">Log Out</property>
         <property name="StockId">gtk-home</property>
       </action>
-      <action id="disconnectAction1">
+      <action id="disconnectAction">
         <property name="Type">Action</property>
         <property name="Label" translatable="yes">Exit</property>
         <property name="ShortLabel" translatable="yes">Exit</property>
         <property name="StockId">gtk-disconnect</property>
+        <signal name="Activated" handler="exitButtonActivated" />
       </action>
     </action-group>
     <property name="MemberName" />
@@ -459,7 +461,7 @@
                 <node type="Menuitem" action="saveAction" />
                 <node type="Menuitem" action="saveAsAction" />
                 <node type="Menuitem" action="homeAction" />
-                <node type="Menuitem" action="disconnectAction1" />
+                <node type="Menuitem" action="disconnectAction" />
               </node>
               <node type="Menu" action="GroupAction">
                 <node type="Menuitem" action="CreateNewAction" />

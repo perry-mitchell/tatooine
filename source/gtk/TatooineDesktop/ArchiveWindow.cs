@@ -115,6 +115,12 @@ namespace TatooineDesktop
 			}
 		}
 
+		protected void exitButtonActivated (object sender, EventArgs e)
+		{
+			// todo: ask for save
+			close ();
+		}
+
 		protected void groupRowSelected (object sender, EventArgs e)
 		{
 			TreeSelection selection = (sender as TreeView).Selection;
@@ -168,9 +174,9 @@ namespace TatooineDesktop
 			}
 		}
 
-		protected void saveArchive ()
+		protected void saveArchive (bool saveAs = false)
 		{
-			if (_archivePath.Length > 0) {
+			if ((_archivePath.Length > 0) && !saveAs) {
 				_archive.writeToFile(_archivePath);
 			} else {
 				Gtk.FileChooserDialog fcd = new Gtk.FileChooserDialog(
@@ -184,6 +190,11 @@ namespace TatooineDesktop
 				}
 				fcd.Destroy();
 			}
+		}
+
+		protected void saveAsButtonActivated (object sender, EventArgs e)
+		{
+			saveArchive(true);
 		}
 
 		protected void saveArchiveActivated (object sender, EventArgs e)

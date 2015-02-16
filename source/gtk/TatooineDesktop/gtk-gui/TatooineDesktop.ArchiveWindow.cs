@@ -16,7 +16,7 @@ namespace TatooineDesktop
 		private global::Gtk.Action deleteAction;
 		private global::Gtk.Action saveAsAction;
 		private global::Gtk.Action homeAction;
-		private global::Gtk.Action disconnectAction1;
+		private global::Gtk.Action disconnectAction;
 		private global::Gtk.VBox vbox4;
 		private global::Gtk.MenuBar menubar1;
 		private global::Gtk.HBox hbox5;
@@ -67,9 +67,9 @@ namespace TatooineDesktop
 			this.homeAction = new global::Gtk.Action ("homeAction", global::Mono.Unix.Catalog.GetString ("Log Out"), null, "gtk-home");
 			this.homeAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Log Out");
 			w1.Add (this.homeAction, null);
-			this.disconnectAction1 = new global::Gtk.Action ("disconnectAction1", global::Mono.Unix.Catalog.GetString ("Exit"), null, "gtk-disconnect");
-			this.disconnectAction1.ShortLabel = global::Mono.Unix.Catalog.GetString ("Exit");
-			w1.Add (this.disconnectAction1, null);
+			this.disconnectAction = new global::Gtk.Action ("disconnectAction", global::Mono.Unix.Catalog.GetString ("Exit"), null, "gtk-disconnect");
+			this.disconnectAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Exit");
+			w1.Add (this.disconnectAction, null);
 			this.UIManager.InsertActionGroup (w1, 0);
 			this.AddAccelGroup (this.UIManager.AccelGroup);
 			this.WidthRequest = 640;
@@ -82,7 +82,7 @@ namespace TatooineDesktop
 			this.vbox4.Name = "vbox4";
 			this.vbox4.Spacing = 6;
 			// Container child vbox4.Gtk.Box+BoxChild
-			this.UIManager.AddUiFromString ("<ui><menubar name='menubar1'><menu name='ArchiveAction' action='ArchiveAction'><menuitem name='saveAction' action='saveAction'/><menuitem name='saveAsAction' action='saveAsAction'/><menuitem name='homeAction' action='homeAction'/><menuitem name='disconnectAction1' action='disconnectAction1'/></menu><menu name='GroupAction' action='GroupAction'><menuitem name='CreateNewAction' action='CreateNewAction'/></menu><menu name='EntryAction' action='EntryAction'><menuitem name='CreateNewAction1' action='CreateNewAction1'/></menu></menubar></ui>");
+			this.UIManager.AddUiFromString ("<ui><menubar name='menubar1'><menu name='ArchiveAction' action='ArchiveAction'><menuitem name='saveAction' action='saveAction'/><menuitem name='saveAsAction' action='saveAsAction'/><menuitem name='homeAction' action='homeAction'/><menuitem name='disconnectAction' action='disconnectAction'/></menu><menu name='GroupAction' action='GroupAction'><menuitem name='CreateNewAction' action='CreateNewAction'/></menu><menu name='EntryAction' action='EntryAction'><menuitem name='CreateNewAction1' action='CreateNewAction1'/></menu></menubar></ui>");
 			this.menubar1 = ((global::Gtk.MenuBar)(this.UIManager.GetWidget ("/menubar1")));
 			this.menubar1.Name = "menubar1";
 			this.vbox4.Add (this.menubar1);
@@ -177,6 +177,8 @@ namespace TatooineDesktop
 			this.CreateNewAction.Activated += new global::System.EventHandler (this.createNewGroupActivated);
 			this.saveAction.Activated += new global::System.EventHandler (this.saveArchiveActivated);
 			this.CreateNewAction1.Activated += new global::System.EventHandler (this.createNewEntryActivated);
+			this.saveAsAction.Activated += new global::System.EventHandler (this.saveAsButtonActivated);
+			this.disconnectAction.Activated += new global::System.EventHandler (this.exitButtonActivated);
 			this.groupTree.CursorChanged += new global::System.EventHandler (this.groupRowSelected);
 			this.entriesTree.CursorChanged += new global::System.EventHandler (this.entryRowSelected);
 			this.entryPropertiesTree.RowActivated += new global::Gtk.RowActivatedHandler (this.entryPropertyRowActivated);
