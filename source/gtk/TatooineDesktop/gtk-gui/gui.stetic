@@ -516,6 +516,7 @@
                         <property name="CanFocus">True</property>
                         <property name="ShowScrollbars">True</property>
                         <signal name="CursorChanged" handler="entryRowSelected" />
+                        <signal name="ButtonPressEvent" handler="entriesListButtonPress" />
                       </widget>
                     </child>
                   </widget>

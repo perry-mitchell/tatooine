@@ -51,10 +51,10 @@ namespace TatooineDesktop
 
 		protected void createNewEntryDataEntered (NewEntryDialog.NewEntryAction actionTaken, Dictionary<string, string> enteredData) {
 			if (actionTaken == NewEntryDialog.NewEntryAction.OK) {
-				string title = enteredData ["title"];
-				string username = enteredData ["username"];
-				string password = enteredData ["password"];
-				string uri = enteredData ["uri"];
+				string title = enteredData["title"];
+				string username = enteredData["username"];
+				string password = enteredData["password"];
+				string uri = enteredData["uri"];
 				if (title.Length > 0) {
 					PasswordEntry newEntry = _archive.createEntry(title, _selectedGroupHash);
 					newEntry.setProperty("username", username);
@@ -84,6 +84,13 @@ namespace TatooineDesktop
 				} else {
 					GUIHelper.showError("Group name", "You must enter a group name.");
 				}
+			}
+		}
+
+		[ GLib.ConnectBefore ]
+		protected void entriesListButtonPress(object o, ButtonPressEventArgs args) {
+			if (args.Event.Button == MOUSE_BUTTON_RIGHT) {
+				showEntriesPopup();
 			}
 		}
 
