@@ -4,61 +4,34 @@
 public partial class MainWindow
 {
 	private global::Gtk.VBox vbox1;
-	
 	private global::Gtk.Label label2;
-	
 	private global::Gtk.Frame frame1;
-	
 	private global::Gtk.Alignment GtkAlignment;
-	
 	private global::Gtk.VBox vbox2;
-	
 	private global::Gtk.VBox vbox3;
-	
 	private global::Gtk.HBox hbox3;
-	
 	private global::Gtk.Label label3;
-	
 	private global::Gtk.FileChooserButton archiveChooser;
-	
 	private global::Gtk.HBox hbox4;
-	
 	private global::Gtk.Label label4;
-	
 	private global::Gtk.Entry archivePasswordEntry;
-	
 	private global::Gtk.HSeparator hseparator1;
-	
 	private global::Gtk.HBox hbox6;
-	
 	private global::Gtk.Label label5;
-	
 	private global::Gtk.Entry keyFileEntry;
-	
 	private global::Gtk.HSeparator hseparator2;
-	
 	private global::Gtk.VBox vbox6;
-	
 	private global::Gtk.Label label6;
-	
 	private global::Gtk.HBox hbox8;
-	
 	private global::Gtk.Label label7;
-	
 	private global::Gtk.Entry newPasswordEntry;
-	
 	private global::Gtk.HBox hbox7;
-	
 	private global::Gtk.Button button4;
-	
 	private global::Gtk.Label GtkLabel1;
-	
 	private global::Gtk.HBox hbox1;
-	
 	private global::Gtk.Button button1;
-	
 	private global::Gtk.Button button2;
-
+	
 	protected virtual void Build ()
 	{
 		global::Stetic.Gui.Initialize (this);

@@ -22,8 +22,7 @@ namespace TatooineDesktop
 		protected ListStore _entriesStore;
 		protected ListStore _entryPropertiesStore;
 
-		public ArchiveWindow (PasswordArchive archive) : base(Gtk.WindowType.Toplevel)
-		{
+		public ArchiveWindow(PasswordArchive archive) : base(Gtk.WindowType.Toplevel) {
 			_archive = archive;
 			_archivePath = "";
 			_activatedPasswordEntryProperty = "";
@@ -37,14 +36,17 @@ namespace TatooineDesktop
 			this.loadArchive();
 		}
 
-		public void close()
-		{
-			Application.Quit ();
+		public void close() {
+			Application.Quit();
 		}
 
-		protected void createNewEntryActivated (object sender, EventArgs e) {
+		protected void createNewEntry() {
 			NewEntryDialog ned = new NewEntryDialog(createNewEntryDataEntered);
 			ned.Show();
+		}
+
+		protected void createNewEntryActivated(object sender, EventArgs e) {
+			createNewEntry();
 		}
 
 		protected void createNewEntryDataEntered (NewEntryDialog.NewEntryAction actionTaken, Dictionary<string, string> enteredData) {
@@ -70,12 +72,11 @@ namespace TatooineDesktop
 			uid.Show();
 		}
 
-		protected void createNewGroupActivated (object sender, EventArgs e) {
+		protected void createNewGroupActivated(object sender, EventArgs e) {
 			createNewGroup();
 		}
 
-		protected void createNewGroupNameEntered (UserInputDialog.UserInputAction actionTaken, string groupName)
-		{
+		protected void createNewGroupNameEntered(UserInputDialog.UserInputAction actionTaken, string groupName) {
 			if (actionTaken == UserInputDialog.UserInputAction.OK) {
 				if (groupName.Length > 0) {
 					_archive.createGroup(groupName);
@@ -86,8 +87,7 @@ namespace TatooineDesktop
 			}
 		}
 
-		protected void entryPropertyRowActivated (object o, RowActivatedArgs args)
-		{
+		protected void entryPropertyRowActivated(object o, RowActivatedArgs args) {
 			TreeSelection selection = (o as TreeView).Selection;
 			TreeModel model;
 			TreeIter iter;
@@ -101,8 +101,7 @@ namespace TatooineDesktop
 			}
 		}
 
-		protected void entryPropertyRowEdited (UserInputDialog.UserInputAction actionTaken, string newValue)
-		{
+		protected void entryPropertyRowEdited(UserInputDialog.UserInputAction actionTaken, string newValue) {
 			if (actionTaken == UserInputDialog.UserInputAction.OK) {
 				if ((_activatedPasswordEntry != null) && (_activatedPasswordEntryProperty.Length > 0)) {
 					_activatedPasswordEntry.setProperty(_activatedPasswordEntryProperty, newValue);
@@ -111,8 +110,7 @@ namespace TatooineDesktop
 			}
 		}
 
-		protected void entryRowSelected (object sender, EventArgs e)
-		{
+		protected void entryRowSelected(object sender, EventArgs e) {
 			TreeSelection selection = (sender as TreeView).Selection;
 			TreeModel model;
 			TreeIter iter;
@@ -124,21 +122,19 @@ namespace TatooineDesktop
 			}
 		}
 
-		protected void exitButtonActivated (object sender, EventArgs e)
-		{
+		protected void exitButtonActivated(object sender, EventArgs e) {
 			// todo: ask for save
 			close ();
 		}
 
 		[ GLib.ConnectBefore ]
-		protected void groupListButtonPress (object o, ButtonPressEventArgs args) {
+		protected void groupListButtonPress(object o, ButtonPressEventArgs args) {
 			if (args.Event.Button == MOUSE_BUTTON_RIGHT) {
 				showGroupsPopup();
 			}
 		}
 
-		protected void groupRowSelected (object sender, EventArgs e)
-		{
+		protected void groupRowSelected(object sender, EventArgs e) {
 			TreeSelection selection = (sender as TreeView).Selection;
 			TreeModel model;
 			TreeIter iter;
@@ -151,8 +147,7 @@ namespace TatooineDesktop
 			}
 		}
 
-		protected void loadArchive ()
-		{
+		protected void loadArchive() {
 			// Groups
 			_groupStore.Clear ();
 			Dictionary<string, string> groups = _archive.getGroups ();
@@ -163,8 +158,7 @@ namespace TatooineDesktop
 			}
 		}
 
-		protected void loadEntry (PasswordEntry entry)
-		{
+		protected void loadEntry(PasswordEntry entry) {
 			_activatedPasswordEntry = entry;
 			_activatedPasswordEntryProperty = "";
 			_entryPropertiesStore.Clear ();
@@ -179,8 +173,7 @@ namespace TatooineDesktop
 			}
 		}
 
-		protected void loadGroup (string groupHash)
-		{
+		protected void loadGroup(string groupHash) {
 			loadEntry(null);
 			_selectedGroupHash = groupHash;
 			_entriesStore.Clear ();
@@ -190,8 +183,7 @@ namespace TatooineDesktop
 			}
 		}
 
-		protected void saveArchive (bool saveAs = false)
-		{
+		protected void saveArchive(bool saveAs = false) {
 			if ((_archivePath.Length > 0) && !saveAs) {
 				_archive.writeToFile(_archivePath);
 			} else {
@@ -208,23 +200,19 @@ namespace TatooineDesktop
 			}
 		}
 
-		protected void saveAsButtonActivated (object sender, EventArgs e)
-		{
+		protected void saveAsButtonActivated(object sender, EventArgs e) {
 			saveArchive(true);
 		}
 
-		protected void saveArchiveActivated (object sender, EventArgs e)
-		{
+		protected void saveArchiveActivated(object sender, EventArgs e) {
 			saveArchive();
 		}
 
-		public void setArchivePath(string path)
-		{
+		public void setArchivePath(string path) {
 			_archivePath = path;
 		}
 
-		protected void setupEntryPropertiesTree ()
-		{
+		protected void setupEntryPropertiesTree() {
 			Gtk.TreeViewColumn propertyCol = new Gtk.TreeViewColumn ();
         	propertyCol.Title = "Property";
 
@@ -247,8 +235,7 @@ namespace TatooineDesktop
 			entryPropertiesTree.Model = _entryPropertiesStore;
 		}
 
-		protected void setupEntriesTree ()
-		{
+		protected void setupEntriesTree() {
 			Gtk.TreeViewColumn entryNameCol = new Gtk.TreeViewColumn ();
         	entryNameCol.Title = "Entry";
 
@@ -271,8 +258,7 @@ namespace TatooineDesktop
 			entriesTree.Model = _entriesStore;
 		}
 
-		protected void setupGroupsTree ()
-		{
+		protected void setupGroupsTree() {
 			Gtk.TreeViewColumn groupNameCol = new Gtk.TreeViewColumn ();
         	groupNameCol.Title = "Groups";
 
@@ -287,8 +273,20 @@ namespace TatooineDesktop
 			groupTree.Model = _groupStore;
 		}
 
-		protected void showGroupsPopup ()
-		{
+		protected void showEntriesPopup() {
+			Gtk.Menu entriesPopup = new Gtk.Menu();
+
+			Gtk.MenuItem newEntryItem = new Gtk.MenuItem("Create new entry");
+			newEntryItem.Activated += delegate(object sender, EventArgs e) {
+
+			};
+			entriesPopup.Append(newEntryItem);
+
+			entriesPopup.ShowAll();
+			entriesPopup.Popup();
+		}
+
+		protected void showGroupsPopup() {
 			Gtk.Menu groupsPopup = new Gtk.Menu();
 
 			Gtk.MenuItem newGroupItem = new Gtk.MenuItem("Create new group");
@@ -301,8 +299,7 @@ namespace TatooineDesktop
 			groupsPopup.Popup();
 		}
 
-		protected void windowClose (object o, Gtk.DeleteEventArgs args)
-		{
+		protected void windowClose(object o, Gtk.DeleteEventArgs args) {
 			this.close ();
 			args.RetVal = true;
 		}		

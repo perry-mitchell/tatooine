@@ -5,57 +5,32 @@ namespace TatooineDesktop
 	public partial class ArchiveWindow
 	{
 		private global::Gtk.UIManager UIManager;
-		
 		private global::Gtk.Action ArchiveAction;
-		
 		private global::Gtk.Action GroupAction;
-		
 		private global::Gtk.Action EntryAction;
-		
 		private global::Gtk.Action CreateNewGroupAction;
-		
 		private global::Gtk.Action saveAction;
-		
 		private global::Gtk.Action CreateNewEntryAction;
-		
 		private global::Gtk.Action addAction;
-		
 		private global::Gtk.Action editAction;
-		
 		private global::Gtk.Action deleteAction;
-		
 		private global::Gtk.Action saveAsAction;
-		
 		private global::Gtk.Action homeAction;
-		
 		private global::Gtk.Action disconnectAction;
-		
 		private global::Gtk.VBox vbox4;
-		
 		private global::Gtk.MenuBar menubar1;
-		
 		private global::Gtk.HBox hbox5;
-		
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
-		
 		private global::Gtk.TreeView groupTree;
-		
 		private global::Gtk.VBox vbox5;
-		
 		private global::Gtk.ScrolledWindow GtkScrolledWindow1;
-		
 		private global::Gtk.TreeView entriesTree;
-		
 		private global::Gtk.VBox vbox2;
-		
 		private global::Gtk.ScrolledWindow GtkScrolledWindow2;
-		
 		private global::Gtk.TreeView entryPropertiesTree;
-		
 		private global::Gtk.Toolbar toolbar1;
-		
 		private global::Gtk.Statusbar statusbar1;
-
+		
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
