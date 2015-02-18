@@ -19,4 +19,4 @@ bash "$CWD/build_tests"
 # Testing script
 echo "Testing core..."
 echo "-----------------------------"
-MONO_PATH="${NUNIT_PATH}" "$NUNIT_DIR/bin/nunit-console.exe" "$CWD/tests.dll" -framework:4.0.30319
+MONO_PATH="${NUNIT_PATH}" mono "$NUNIT_DIR/bin/nunit-console.exe" "$CWD/tests.dll" -framework:4.0.30319
