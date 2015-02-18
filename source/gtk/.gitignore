@@ -1,0 +1,11 @@
+#User Specific
+*.userprefs
+*.usertasks
+
+#Mono Project Files
+*.pidb
+*.resources
+test-results/
+
+TatooineDesktop/bin/Debug/*.*
+TatooineDesktop/obj/x86/Debug/*.*

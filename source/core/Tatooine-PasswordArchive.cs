@@ -48,6 +48,9 @@ namespace Tatooine {
 
 		public string createGroup(string groupName) {
 			if (groupName.Length > 0) {
+				if (groupNameExists(groupName)) {
+					throw new Exception("Group already exists: " + groupName);
+				}
 				string existingGroup = "";
 				string newHash = "";
 				Random rnd = new Random();
@@ -64,8 +67,9 @@ namespace Tatooine {
 				Hashtable groups = (Hashtable)_archive["groups"];
 				groups.Add(newHash, groupName);
 				return newHash;
+			} else {
+				throw new Exception("Group name must not be empty");
 			}
-			return "";
 		}
 
 		public static PasswordArchive createNew(SecureString password) {
@@ -122,6 +126,16 @@ namespace Tatooine {
 			return null;
 		}
 
+		public string getGroupHashForName(string groupName) {
+			Dictionary<string, string> groups = getGroups();
+			foreach (KeyValuePair<string, string> group in groups) {
+				if (group.Value.Equals(groupName)) {
+					return group.Key;
+				}
+			}
+			return "";
+		}
+
 		public string getGroupName(string hash) {
 			Dictionary<string, string> groups = getGroups();
 			return (groups.ContainsKey(hash)) ? groups[hash] : "";
@@ -137,6 +151,10 @@ namespace Tatooine {
 
 		public bool groupExists(string hash) {
 			return (getGroupName(hash).Length > 0);
+		}
+
+		public bool groupNameExists(string name) {
+			return getGroups().ContainsValue(name);
 		}
 
 		public bool isSupported() {

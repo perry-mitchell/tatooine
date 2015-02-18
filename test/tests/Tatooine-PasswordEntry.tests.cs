@@ -14,10 +14,12 @@ namespace TatooineTests {
 	class PasswordEntryTests {
 
 		private PasswordEntry entry;
+		private string groupHash;
 
 		[SetUp] public void init() {
 			Hashtable entryData = new Hashtable();
-			entryData["group"] = Tatooine.Tools.Encoding.sha256("some group");
+			groupHash = Tatooine.Tools.Encoding.sha256("some group");
+			entryData["group"] = groupHash;
 			entryData["title"] = "Group Title";
 			entry = new PasswordEntry(entryData);
 		}
@@ -26,9 +28,8 @@ namespace TatooineTests {
 			StringAssert.IsMatch(entry.getTitle(), "Group Title");
 		}
 
-		[Test] public void testEntrySetTitle() {
-			entry.setTitle("test title");
-			StringAssert.IsMatch(entry.getTitle(), "test title");
+		[Test] public void testGetGroup() {
+			StringAssert.IsMatch(entry.getGroup(), groupHash);
 		}
 
 		[Test] public void testGetProperty() {
@@ -47,6 +48,11 @@ namespace TatooineTests {
 			List<string> propNames = entry.getPropertyNames();
 			CollectionAssert.Contains(propNames, "some");
 			CollectionAssert.Contains(propNames, "another");
+		}
+
+		[Test] public void testSetTitle() {
+			entry.setTitle("test title");
+			StringAssert.IsMatch(entry.getTitle(), "test title");
 		}
 
 	}
