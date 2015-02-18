@@ -448,7 +448,7 @@
     <property name="WidthRequest">640</property>
     <property name="HeightRequest">480</property>
     <property name="Title" translatable="yes">ArchiveWindow</property>
-    <property name="WindowPosition">CenterOnParent</property>
+    <property name="WindowPosition">Center</property>
     <signal name="DeleteEvent" handler="windowClose" />
     <child>
       <widget class="Gtk.VBox" id="vbox4">
@@ -516,7 +516,6 @@
                         <property name="CanFocus">True</property>
                         <property name="ShowScrollbars">True</property>
                         <signal name="CursorChanged" handler="entryRowSelected" />
-                        <signal name="ButtonPressEvent" handler="entriesListButtonPress" />
                       </widget>
                     </child>
                   </widget>
@@ -705,7 +704,7 @@
   <widget class="Gtk.Dialog" id="TatooineDesktop.NewEntryDialog" design-size="400 300">
     <property name="MemberName" />
     <property name="Title" translatable="yes">New entry</property>
-    <property name="WindowPosition">CenterOnParent</property>
+    <property name="WindowPosition">Center</property>
     <property name="Buttons">2</property>
     <property name="HelpButton">False</property>
     <child internal-child="VBox">
