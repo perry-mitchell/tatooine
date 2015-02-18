@@ -5,17 +5,17 @@ CWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT=$CWD/..
 NUNIT_DIR=$CWD/NUnit-2.6.4
 
-CORE_BUILD=$ROOT/source/build_core
+CORE_BUILD="$ROOT/source/build_core"
 
 # Build
 echo "Building items..."
 echo "-----------------------------"
-bash $CORE_BUILD
+bash "$CORE_BUILD"
 
 echo "Building tests:"
-. $CWD/build_tests
+bash "$CWD/build_tests"
 
 # Testing script
 echo "Testing core..."
 echo "-----------------------------"
-MONO_PATH="${NUNIT_PATH}" $NUNIT_DIR/bin/nunit-console.exe $CWD/tests.dll -framework:4.0.30319
+MONO_PATH="${NUNIT_PATH}" "$NUNIT_DIR/bin/nunit-console.exe" "$CWD/tests.dll" -framework:4.0.30319
