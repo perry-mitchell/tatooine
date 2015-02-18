@@ -3,7 +3,8 @@
 # Current path
 CWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT=$CWD/..
-NUNIT_DIR=$CWD/NUnit-2.6.4
+NUNIT_DIR="$CWD/NUnit-2.6.4"
+NUNIT_PATH="$CWD/NUnit-2.6.4/bin"
 
 CORE_BUILD="$ROOT/source/build_core"
 
