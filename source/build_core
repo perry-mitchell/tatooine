@@ -6,7 +6,7 @@ echo "-----------------------------"
 
 # Current path
 CWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-CORE_PATH=$CWD/core
-BUILD_PATH=$CWD/build
+CORE_PATH="$CWD/core"
+BUILD_PATH="$CWD/build"
 
-dmcs -t:library -out:$BUILD_PATH/Tatooine.core.dll -unsafe "$CORE_PATH/*.cs"
+dmcs -t:library -out:"$BUILD_PATH/Tatooine.core.dll" -unsafe "$CORE_PATH/*.cs"
