@@ -19,6 +19,10 @@ This repository
 
 This repo is home to both the core system (Tatooine) as well as the GTK desktop source (TatooineDesktop).
 
+### Stability
+
+* Core --> [![Build Status](http://penkins.doomdns.org/buildStatus/icon?job=Tatooine-core)](http://penkins.doomdns.org/job/Tatooine-core/)
+
 Development environment
 -----------------------
 
