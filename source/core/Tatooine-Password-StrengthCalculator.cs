@@ -3,65 +3,71 @@ using System.Text.RegularExpressions;
 
 namespace Tatooine.Password {
 
-	// Scoring algorithm borrowed from this post:
-	//		http://stackoverflow.com/questions/12899876/checking-strings-for-a-strong-enough-password
-
-	public enum PasswordScore {
-		Blank = 0,
-		VeryWeak = 1,
-		Weak = 2,
-		Medium = 3,
-		Strong = 4,
-		VeryStrong = 5
-	}
-
 	public class StrengthCalculator {
 
 		protected string _password;
-		protected PasswordScore _score;
+
+		public const int PASSWORD_MIN_LENGTH = 8;
 
 		protected StrengthCalculator(string password) {
 			_password = password;
-			_score = PasswordScore.VeryWeak;
-
-			processPasswordScore();
+			_score = processPasswordScore();
 		}
 
-		public static PasswordScore calculateStrength(string password) {
+		public static int calculateStrength(string password) {
 			StrengthCalculator calc = new StrengthCalculator(password);
 			return calc.getPasswordScore();
 		}
 
-		protected PasswordScore getPasswordScore() {
+		protected int getPasswordScore() {
 			return _score;
 		}
 
-		protected void processPasswordScore() {
-			_score = PasswordScore.VeryWeak;
+		protected int processPasswordScore() {
+			int score = 0;
+			int length = _password.Length;
 
-			if (_password.Length < 1) {
-				_score = PasswordScore.Blank;
-			}
-			if (_password.Length < 4) {
-				_score = PasswordScore.VeryWeak;
+			// Specs borrowed from: http://www.passwordmeter.com/
+
+			if (length == 0) {
+				return 0;
+			} else if (length < PASSWORD_MIN_LENGTH) {
+				return 1;
 			}
 
-			if (_password.Length >= 8) {
-				_score += 1;
+			// ** ADDITIONS
+
+			// Length
+			score += (length - PASSWORD_MIN_LENGTH) * 4;
+
+			// Lower case
+			score += (length - Regex.Match(password, @"/[a-z]/", RegexOptions.ECMAScript).Count) * 2;
+
+			// Upper case
+			score += (length - Regex.Match(password, @"/[A-Z]/", RegexOptions.ECMAScript).Count) * 2;
+
+			// Numbers
+			score += Regex.Match(password, @"/[0-9]/", RegexOptions.ECMAScript).Count * 4;
+
+			// Symbols
+			score += Regex.Match(password, "/[$-/:-?{-~!\"^_`\\[\\]]/", RegexOptions.ECMAScript).Count * 6;
+
+			// Middle symbols/numbers
+			score += Regex.Match(password, "/^.{1,}[$-/:-?{-~!\"^_`\\[\\]0-9].{1,}$/", RegexOptions.ECMAScript).Count * 2;
+
+			// ** DEDUCTIONS
+
+			// Letters only
+			if (Regex.Match(password, @"/[a-zA-Z]/", RegexOptions.ECMAScript).Count == length) {
+				score -= length;
 			}
-			if (_password.Length >= 12) {
-				_score += 1;
+
+			// Numbers only
+			if (Regex.Match(password, @"/[0-9]/", RegexOptions.ECMAScript).Count == length) {
+				score -= length;
 			}
-			if (Regex.Match(_password, @"/\d+/", RegexOptions.ECMAScript).Success) {
-				_score += 1;
-			}
-			if (Regex.Match(_password, @"/[a-z]/", RegexOptions.ECMAScript).Success &&
-				Regex.Match(_password, @"/[A-Z]/", RegexOptions.ECMAScript).Success) {
-				_score += 1;
-			}
-			if (Regex.Match(_password, @"/.[!,@,#,$,%,^,&,*,?,_,~,-,£,(,)]/", RegexOptions.ECMAScript).Success) {
-				_score += 1;
-			}
+
+			return score;
 		}
 
 	}

@@ -13,7 +13,7 @@ namespace TatooineTests {
 			
 		}
 
-		[Test] public void testStrengthAccurateForVeryStrongPasswords() {
+		/*[Test] public void testStrengthAccurateForVeryStrongPasswords() {
 			List<string> strongPasswords = new List<string> {
 				"some long strong passw0rd!",
 				"th!5 i5_4_5strONG pass.word",
@@ -23,7 +23,7 @@ namespace TatooineTests {
 				Assert.AreEqual(PasswordScore.VeryStrong, StrengthCalculator.calculateStrength(password),
 					"Expected 'VeryStrong' strength for password: " + password);
 			}
-		}
+		}*/
 	}
 
 }
