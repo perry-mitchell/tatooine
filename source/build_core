@@ -9,4 +9,7 @@ CWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 CORE_PATH="$CWD/core"
 BUILD_PATH="$CWD/build"
 
+if [ -e "$BUILD_PATH/Tatooine.core.dll" ]; then
+	rm "$BUILD_PATH/Tatooine.core.dll"
+fi
 dmcs -t:library -out:"$BUILD_PATH/Tatooine.core.dll" -unsafe "$CORE_PATH/*.cs"

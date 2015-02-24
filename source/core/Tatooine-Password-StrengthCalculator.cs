@@ -11,16 +11,11 @@ namespace Tatooine.Password {
 
 		protected StrengthCalculator(string password) {
 			_password = password;
-			_score = processPasswordScore();
 		}
 
 		public static int calculateStrength(string password) {
 			StrengthCalculator calc = new StrengthCalculator(password);
-			return calc.getPasswordScore();
-		}
-
-		protected int getPasswordScore() {
-			return _score;
+			return calc.processPasswordScore();
 		}
 
 		protected int processPasswordScore() {
@@ -41,31 +36,38 @@ namespace Tatooine.Password {
 			score += (length - PASSWORD_MIN_LENGTH) * 4;
 
 			// Lower case
-			score += (length - Regex.Match(password, @"/[a-z]/", RegexOptions.ECMAScript).Count) * 2;
+			score += (length - Regex.Matches(_password, @"/[a-z]/", RegexOptions.ECMAScript).Count) * 2;
 
 			// Upper case
-			score += (length - Regex.Match(password, @"/[A-Z]/", RegexOptions.ECMAScript).Count) * 2;
+			score += (length - Regex.Matches(_password, @"/[A-Z]/", RegexOptions.ECMAScript).Count) * 2;
 
 			// Numbers
-			score += Regex.Match(password, @"/[0-9]/", RegexOptions.ECMAScript).Count * 4;
+			score += Regex.Matches(_password, @"/[0-9]/", RegexOptions.ECMAScript).Count * 4;
 
 			// Symbols
-			score += Regex.Match(password, "/[$-/:-?{-~!\"^_`\\[\\]]/", RegexOptions.ECMAScript).Count * 6;
+			score += Regex.Matches(_password, "/[$-/:-?{-~!\"^_`\\[\\]]/", RegexOptions.ECMAScript).Count * 6;
 
 			// Middle symbols/numbers
-			score += Regex.Match(password, "/^.{1,}[$-/:-?{-~!\"^_`\\[\\]0-9].{1,}$/", RegexOptions.ECMAScript).Count * 2;
+			score += Regex.Matches(_password, "/^.{1,}[$-/:-?{-~!\"^_`\\[\\]0-9].{1,}$/", RegexOptions.ECMAScript).Count * 2;
 
 			// ** DEDUCTIONS
 
 			// Letters only
-			if (Regex.Match(password, @"/[a-zA-Z]/", RegexOptions.ECMAScript).Count == length) {
+			if (Regex.Matches(_password, @"/[a-zA-Z]/", RegexOptions.ECMAScript).Count == length) {
 				score -= length;
 			}
 
 			// Numbers only
-			if (Regex.Match(password, @"/[0-9]/", RegexOptions.ECMAScript).Count == length) {
+			if (Regex.Matches(_password, @"/[0-9]/", RegexOptions.ECMAScript).Count == length) {
 				score -= length;
 			}
+
+			// Consecutive uppercase letters
+			int totalUpperConsec = 0;
+			foreach (Match upperMatch in Regex.Matches(_password, @"/[A-Z]{2,}/", RegexOptions.ECMAScript)) {
+				totalUpperConsec += upperMatch.Value.Length;
+			}
+			score -= totalUpperConsec * 2;
 
 			return score;
 		}
