@@ -12,6 +12,12 @@ namespace TatooineTests {
 			
 		}
 
+		[Test] public void testCountsDifferentCharacters() {
+			Assert.AreEqual(1, PasswordAnalysis.countDifferentCharacters("aaaa"));
+			Assert.AreEqual(2, PasswordAnalysis.countDifferentCharacters("aaba"));
+			Assert.AreEqual(5, PasswordAnalysis.countDifferentCharacters("1.fvf8?"));
+		}
+
 		[Test] public void testCountsFullLengthLetters() {
 			int count = PasswordAnalysis.countSequentialCharacters("abcdef");
 			Assert.AreEqual(6, count);

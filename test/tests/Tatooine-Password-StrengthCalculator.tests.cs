@@ -28,8 +28,8 @@ namespace TatooineTests {
 				PasswordStrength ps = StrengthCalculator.calculateStrength(password);
 				Assert.AreEqual(PasswordStrength.WEAK, ps, "Expected 'WEAK' strength for password: " + password);
 
-				int strength = StrengthCalculator.calculateStrengthIndex(password);
-				Console.WriteLine(":: " + password + " => " + strength);
+				//int strength = StrengthCalculator.calculateStrengthIndex(password);
+				//Console.WriteLine(":: " + password + " => " + strength);
 			}
 		}
 
