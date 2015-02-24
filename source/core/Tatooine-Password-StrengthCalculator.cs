@@ -17,6 +17,8 @@ namespace Tatooine.Password {
 		protected string _password;
 
 		public const int PASSWORD_MIN_LENGTH = 8;
+		public const int STRENGTH_AVERAGE_MIN = 45;
+		public const int STRENGTH_STRONG_MIN = 100;
 
 		protected StrengthCalculator(string password) {
 			_password = password;
@@ -32,7 +34,11 @@ namespace Tatooine.Password {
 
 			// In-range
 			int index = calculateStrengthIndex(password);
-
+			if (index >= STRENGTH_STRONG_MIN) {
+				return PasswordStrength.STRONG;
+			} else if (index >= STRENGTH_AVERAGE_MIN) {
+				return PasswordStrength.AVERAGE;
+			}
 			return PasswordStrength.WEAK;
 		}
 
@@ -59,49 +65,49 @@ namespace Tatooine.Password {
 			score += (length - PASSWORD_MIN_LENGTH) * 4;
 
 			// Lower case
-			score += (length - Regex.Matches(_password, @"/[a-z]/", RegexOptions.ECMAScript).Count) * 2;
+			score += (length - Regex.Matches(_password, @"[a-z]").Count) * 2;
 
 			// Upper case
-			score += (length - Regex.Matches(_password, @"/[A-Z]/", RegexOptions.ECMAScript).Count) * 2;
+			score += (length - Regex.Matches(_password, @"[A-Z]").Count) * 2;
 
 			// Numbers
-			score += Regex.Matches(_password, @"/[0-9]/", RegexOptions.ECMAScript).Count * 4;
+			score += Regex.Matches(_password, @"[0-9]").Count * 4;
 
 			// Symbols
-			score += Regex.Matches(_password, "/[$-/:-?{-~!\"^_`\\[\\]]/", RegexOptions.ECMAScript).Count * 6;
+			score += Regex.Matches(_password, "[$-/:-?{-~!\"^_`\\[\\]]").Count * 6;
 
 			// Middle symbols/numbers
-			score += Regex.Matches(_password, "/^.{1,}[$-/:-?{-~!\"^_`\\[\\]0-9].{1,}$/", RegexOptions.ECMAScript).Count * 2;
+			score += Regex.Matches(_password, "^.{1,}[$-/:-?{-~!\"^_`\\[\\]0-9].{1,}$").Count * 2;
 
 			// ** DEDUCTIONS
 
 			// Letters only
-			if (Regex.Matches(_password, @"/[a-zA-Z]/", RegexOptions.ECMAScript).Count == length) {
+			if (Regex.Matches(_password, @"[a-zA-Z]").Count == length) {
 				score -= length;
 			}
 
 			// Numbers only
-			if (Regex.Matches(_password, @"/[0-9]/", RegexOptions.ECMAScript).Count == length) {
+			if (Regex.Matches(_password, @"[0-9]").Count == length) {
 				score -= length;
 			}
 
 			// Consecutive uppercase letters
 			int totalUpperConsec = 0;
-			foreach (Match upperMatch in Regex.Matches(_password, @"/[A-Z]{2,}/", RegexOptions.ECMAScript)) {
+			foreach (Match upperMatch in Regex.Matches(_password, @"[A-Z]{2,}")) {
 				totalUpperConsec += upperMatch.Value.Length;
 			}
 			score -= totalUpperConsec * 2;
 
 			// Consecutive lowercase letters
 			int totalLowerConsec = 0;
-			foreach (Match lowerMatch in Regex.Matches(_password, @"/[a-z]{2,}/", RegexOptions.ECMAScript)) {
+			foreach (Match lowerMatch in Regex.Matches(_password, @"[a-z]{2,}")) {
 				totalLowerConsec += lowerMatch.Value.Length;
 			}
 			score -= totalLowerConsec * 2;
 
 			// Consecutive numbers
 			int totalNumberConsec = 0;
-			foreach (Match cNumbersMatch in Regex.Matches(_password, @"/[0-9]{2,}/", RegexOptions.ECMAScript)) {
+			foreach (Match cNumbersMatch in Regex.Matches(_password, @"[0-9]{2,}")) {
 				totalNumberConsec += cNumbersMatch.Value.Length;
 			}
 			score -= totalNumberConsec * 2;
