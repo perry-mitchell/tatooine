@@ -7,7 +7,7 @@ NUNIT_DLL="$NUNIT_PATH/nunit.framework.dll"
 CORE_DLL="$CWD/../source/build/Tatooine.core.dll"
 
 # Clean
-rm "$CWD/*.dll"
+rm $CWD/*.dll
 
 # Build
 dmcs -t:library -out:"$CWD/tests.dll" -r:"$CORE_DLL" -r:"$NUNIT_DLL" -unsafe "$CWD/tests/*.cs"

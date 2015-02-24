@@ -16,7 +16,7 @@ namespace TatooineTests {
 		}
 
 		[Test] public void testStrengthAlwaysReturnsAValue() {
-			int strength = StrengthCalculator.calculateStrength(PASSWORD_VERY_STRONG);
+			int strength = StrengthCalculator.calculateStrengthIndex(PASSWORD_VERY_STRONG);
 			Assert.Greater(strength, 0);
 		}
 

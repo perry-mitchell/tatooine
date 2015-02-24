@@ -1,7 +1,16 @@
 using System;
 using System.Text.RegularExpressions;
+using Tatooine;
 
 namespace Tatooine.Password {
+
+	public enum PasswordStrength {
+		BLANK,
+		SHORT,
+		WEAK,
+		AVERAGE,
+		STRONG
+	}
 
 	public class StrengthCalculator {
 
@@ -13,7 +22,21 @@ namespace Tatooine.Password {
 			_password = password;
 		}
 
-		public static int calculateStrength(string password) {
+		public static PasswordStrength calculateStrength(string password) {
+			int length = password.Length;
+			if (length == 0) {
+				return PasswordStrength.BLANK;
+			} else if (length < PASSWORD_MIN_LENGTH) {
+				return PasswordStrength.SHORT;
+			}
+
+			// In-range
+			int index = calculateStrengthIndex(password);
+
+			return PasswordStrength.WEAK;
+		}
+
+		public static int calculateStrengthIndex(string password) {
 			StrengthCalculator calc = new StrengthCalculator(password);
 			return calc.processPasswordScore();
 		}
@@ -82,6 +105,9 @@ namespace Tatooine.Password {
 				totalNumberConsec += cNumbersMatch.Value.Length;
 			}
 			score -= totalNumberConsec * 2;
+
+			// Character sequences
+			score -= Tools.PasswordAnalysis.countSequentialCharacters(_password) * 3;
 
 			return score;
 		}
