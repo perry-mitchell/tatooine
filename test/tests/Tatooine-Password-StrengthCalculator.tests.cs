@@ -9,7 +9,7 @@ namespace TatooineTests {
 	[TestFixture]
 	class PasswordStrengthTests {
 
-		private const string PASSWORD_VERY_STRONG = "aG4.$d81X?z0*w_mI+";
+		private const string PASSWORD_VERY_STRONG = "aG4.$d8,1X?z0*w_mI+";
 
 		[SetUp] public void init() {
 			

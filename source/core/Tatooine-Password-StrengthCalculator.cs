@@ -69,6 +69,20 @@ namespace Tatooine.Password {
 			}
 			score -= totalUpperConsec * 2;
 
+			// Consecutive lowercase letters
+			int totalLowerConsec = 0;
+			foreach (Match lowerMatch in Regex.Matches(_password, @"/[a-z]{2,}/", RegexOptions.ECMAScript)) {
+				totalLowerConsec += lowerMatch.Value.Length;
+			}
+			score -= totalLowerConsec * 2;
+
+			// Consecutive numbers
+			int totalNumberConsec = 0;
+			foreach (Match cNumbersMatch in Regex.Matches(_password, @"/[0-9]{2,}/", RegexOptions.ECMAScript)) {
+				totalNumberConsec += cNumbersMatch.Value.Length;
+			}
+			score -= totalNumberConsec * 2;
+
 			return score;
 		}
 
