@@ -8,17 +8,6 @@ namespace Tatooine.Tools {
 		private PasswordAnalysis() {}
 
 		public static int countDifferentCharacters(string text) {
-			// Hashtable characters = new Hashtable();
-			// for (int i = 0; i < text.Length; i += 1) {
-			// 	string item = "" + text[i];
-			// 	if (characters.ContainsKey(item)) {
-			// 		characters[item] = (int)characters[item] + 1;
-			// 	} else {
-			// 		Console.WriteLine("Add " + item);
-			// 		characters.Add(item, 1);
-			// 	}
-			// }
-			// return characters.Count;
 			List<string> characters = new List<string>();
 			for (int i = 0; i < text.Length; i += 1) {
 				string item = "" + text[i];
