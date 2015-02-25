@@ -16,6 +16,9 @@ namespace TatooineTests {
 			Assert.AreEqual(1, PasswordAnalysis.countDifferentCharacters("aaaa"));
 			Assert.AreEqual(2, PasswordAnalysis.countDifferentCharacters("aaba"));
 			Assert.AreEqual(6, PasswordAnalysis.countDifferentCharacters("1.fvf8?"));
+			Assert.AreEqual(0, PasswordAnalysis.countDifferentCharacters(""));
+			Assert.AreEqual(10, PasswordAnalysis.countDifferentCharacters(",.?<>+=_':"));
+			Assert.AreEqual(12, PasswordAnalysis.countDifferentCharacters("♬◮⒛⌘⋇↉℧⁋ӜфῄƏ"));
 		}
 
 		[Test] public void testCountsFullLengthLetters() {
