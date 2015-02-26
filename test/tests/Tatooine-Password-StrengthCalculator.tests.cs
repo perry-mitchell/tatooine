@@ -16,20 +16,51 @@ namespace TatooineTests {
 		}
 
 		[Test] public void testCalculateStrengthWeakPasswords() {
-			// PasswordStrength ps = StrengthCalculator.calculateStrength("AkMuEvPSM-x");
-			// int strength = StrengthCalculator.calculateStrengthIndex("AkMuEvPSM-x");
-			// Console.WriteLine(Enum.GetName(typeof(PasswordStrength), ps) + " - " + strength);
 			List<string> weakPasswords = new List<string> {
 				"AkMuEvPSM",
 				"a1a1a1a1",
+				"aaaaaaa1",
 				"bottle54"
 			};
 			foreach (string password in weakPasswords) {
+				int strength = StrengthCalculator.calculateStrengthIndex(password);
+				Console.WriteLine(":: " + password + " => " + strength);
+
 				PasswordStrength ps = StrengthCalculator.calculateStrength(password);
 				Assert.AreEqual(PasswordStrength.WEAK, ps, "Expected 'WEAK' strength for password: " + password);
+			}
+		}
 
-				//int strength = StrengthCalculator.calculateStrengthIndex(password);
-				//Console.WriteLine(":: " + password + " => " + strength);
+		[Test] public void testCalculateStrengthAveragePasswords() {
+			List<string> averagePasswords = new List<string> {
+				"i Am 4 horse",
+				"t0keN freely.",
+				"ia!mBar8b?",
+				"zD7.C95.vK"
+			};
+			foreach (string password in averagePasswords) {
+				int strength = StrengthCalculator.calculateStrengthIndex(password);
+				Console.WriteLine(":: " + password + " => " + strength);
+
+				PasswordStrength ps = StrengthCalculator.calculateStrength(password);
+				Assert.AreEqual(PasswordStrength.AVERAGE, ps, "Expected 'AVERAGE' strength for password: " + password);
+			}
+		}
+
+		[Test] public void testCalculateStrengthStrongPasswords() {
+			List<string> strongPasswords = new List<string> {
+				PASSWORD_STRONG,
+				"%d.@ a5N+kC-",
+				"4$ld9.7@zT5",
+				"a@#!B$%9---",
+				"correct horse battery staple"
+			};
+			foreach (string password in strongPasswords) {
+				int strength = StrengthCalculator.calculateStrengthIndex(password);
+				Console.WriteLine(":: " + password + " => " + strength);
+
+				PasswordStrength ps = StrengthCalculator.calculateStrength(password);
+				Assert.AreEqual(PasswordStrength.STRONG, ps, "Expected 'STRONG' strength for password: " + password);
 			}
 		}
 
@@ -38,17 +69,6 @@ namespace TatooineTests {
 			Assert.Greater(strength, 0);
 		}
 
-		/*[Test] public void testStrengthAccurateForVeryStrongPasswords() {
-			List<string> strongPasswords = new List<string> {
-				"some long strong passw0rd!",
-				"th!5 i5_4_5strONG pass.word",
-				"asd4FASF45%$"
-			};
-			foreach (string password in strongPasswords) {
-				Assert.AreEqual(PasswordScore.VeryStrong, StrengthCalculator.calculateStrength(password),
-					"Expected 'VeryStrong' strength for password: " + password);
-			}
-		}*/
 	}
 
 }

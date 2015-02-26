@@ -18,7 +18,7 @@ namespace Tatooine.Password {
 
 		public const int PASSWORD_MIN_LENGTH = 8;
 		public const int STRENGTH_AVERAGE_MIN = 45;
-		public const int STRENGTH_STRONG_MIN = 100;
+		public const int STRENGTH_STRONG_MIN = 85;
 
 		protected StrengthCalculator(string password) {
 			_password = password;
@@ -62,7 +62,7 @@ namespace Tatooine.Password {
 			// ** ADDITIONS
 
 			// Length
-			score += (length - PASSWORD_MIN_LENGTH) * 4;
+			score += (length - PASSWORD_MIN_LENGTH) * 5;
 
 			// Lower case
 			score += (length - Regex.Matches(_password, @"[a-z]").Count) * 2;
@@ -78,6 +78,9 @@ namespace Tatooine.Password {
 
 			// Middle symbols/numbers
 			score += Regex.Matches(_password, "^.{1,}[$-/:-?{-~!\"^_`\\[\\]0-9].{1,}$").Count * 2;
+
+			// Words
+			score += Regex.Matches(_password, "\\w+").Count * 3;
 
 			// ** DEDUCTIONS
 
@@ -114,6 +117,11 @@ namespace Tatooine.Password {
 
 			// Character sequences
 			score -= Tools.PasswordAnalysis.countSequentialCharacters(_password) * 3;
+
+			// Different characters
+			int diffChars = Tools.PasswordAnalysis.countDifferentCharacters(_password);
+			double charDiffPenalty = (1.0 - ((double)diffChars / (double)length)) * 15.0;
+			score -= (int)Math.Ceiling(charDiffPenalty);
 
 			return score;
 		}
