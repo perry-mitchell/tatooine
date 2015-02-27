@@ -9,14 +9,26 @@ namespace Tatooine.Password {
 		protected string _chars;
 		protected bool _enabled;
 
+		protected int uses;
+
 		public PasswordCharset(string name, string chars, bool enabled) {
 			_name = name;
 			_chars = chars;
 			_enabled = enabled;
+
+			uses = 0;
+		}
+
+		public string getCharString() {
+			return _chars;
 		}
 
 		public string getName() {
 			return _name;
+		}
+
+		public bool isEnabled() {
+			return _enabled;
 		}
 
 		public void setStatus(bool enabled) {
@@ -28,11 +40,11 @@ namespace Tatooine.Password {
 	public class PasswordGeneratorOptions {
 
 		protected List<PasswordCharset> charsets;
-		protected int length;
+		protected int _length;
 
 		public PasswordGeneratorOptions() {
 			// Defaults:
-			length = 16;
+			_length = 16;
 
 			// Characters:
 			charsets = new List<PasswordCharset> {
@@ -47,6 +59,20 @@ namespace Tatooine.Password {
 			};
 		}
 
+		public List<PasswordCharset> getEnabledCharsets() {
+			List<PasswordCharset> enabledSets = new List<PasswordCharset>();
+			foreach (PasswordCharset charset in charsets) {
+				if (charset.isEnabled()) {
+					enabledSets.Add(charset);
+				}
+			}
+			return enabledSets;
+		}
+
+		public int getLength() {
+			return _length;
+		}
+
 		public void setCharsetStatus(string name, bool status) {
 			foreach (PasswordCharset charset in charsets) {
 				if (charset.getName().Equals(name)) {
@@ -55,12 +81,37 @@ namespace Tatooine.Password {
 			}
 		}
 
+		public void setLength(int length) {
+			_length = length;
+		}
+
 	}
 
 	public class PasswordGenerator {
 
-		public PasswordGenerator(PasswordGeneratorOptions options) {
+		protected List<PasswordCharset> charsets;
+		protected PasswordGeneratorOptions _options;
 
+		private PasswordGenerator(PasswordGeneratorOptions options) {
+			_options = options;
+			charsets = options.getEnabledCharsets();
+		}
+
+		public static string generateNewPassword(PasswordGeneratorOptions options) {
+			PasswordGenerator generator = new PasswordGenerator(options);
+			string password = "";
+			for (int i = 0; i < generator.getOptions().getLength(); i += 1) {
+
+			}
+			return password;
+		}
+
+		// protected PasswordCharset getNextCharset() {
+			
+		// }
+
+		protected PasswordGeneratorOptions getOptions() {
+			return _options;
 		}
 
 	}
