@@ -3,16 +3,31 @@ using System.Collections.Generic;
 
 namespace Tatooine.Password {
 
-	// idea from: http://stackoverflow.com/questions/8002455/how-to-easily-initialize-a-list-of-tuples
-	public class PasswordCharsetTupleList<T1, T2, T3> : List<Tuple<T1, T2, T3>> {
-		public void Add(T1 item, T2 item2, T3 item3) {
-			Add(new Tuple<T1, T2, T3>(item, item2, item3));
+	public class PasswordCharset {
+
+		protected string _name;
+		protected string _chars;
+		protected bool _enabled;
+
+		public PasswordCharset(string name, string chars, bool enabled) {
+			_name = name;
+			_chars = chars;
+			_enabled = enabled;
 		}
+
+		public string getName() {
+			return _name;
+		}
+
+		public void setStatus(bool enabled) {
+			_enabled = enabled;
+		}
+
 	}
 
 	public class PasswordGeneratorOptions {
 
-		protected PasswordCharsetTupleList<string, bool, string> charsets;
+		protected List<PasswordCharset> charsets;
 		protected int length;
 
 		public PasswordGeneratorOptions() {
@@ -20,22 +35,22 @@ namespace Tatooine.Password {
 			length = 16;
 
 			// Characters:
-			charsets = new PasswordCharsetTupleList<string, bool, string> {
-				{ "alpha-low", true, "abcdefghijklmnopqrstuvwxyz" },
-				{ "alpha-up", true, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" },
-				{ "numeric", true, "0123456789" },
-				{ "dash", false, "-" },
-				{ "underline", false, "_" },
-				{ "space", false, " " },
-				{ "special", true, "~!@#$%^&*+=;:,./?|" },
-				{ "brackets", false, "[]{}()<>" }
+			charsets = new List<PasswordCharset> {
+				new PasswordCharset("alpha-low", "abcdefghijklmnopqrstuvwxyz", true),
+				new PasswordCharset("alpha-up", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", true),
+				new PasswordCharset("numeric", "0123456789", true),
+				new PasswordCharset("dash", "-", false),
+				new PasswordCharset("underline", "_", false),
+				new PasswordCharset("space", " ", false),
+				new PasswordCharset("special", "~!@#$%^&*+=;:,./?|", true),
+				new PasswordCharset("brackets", "[]{}()<>", false)
 			};
 		}
 
 		public void setCharsetStatus(string name, bool status) {
-			foreach (Tuple<string, bool, string> charset in charsets) {
-				if (charset.Item1.Equals(name)) {
-					charset.Item2 = status;
+			foreach (PasswordCharset charset in charsets) {
+				if (charset.getName().Equals(name)) {
+					charset.setStatus(status);
 				}
 			}
 		}
@@ -44,7 +59,9 @@ namespace Tatooine.Password {
 
 	public class PasswordGenerator {
 
+		public PasswordGenerator(PasswordGeneratorOptions options) {
 
+		}
 
 	}
 
