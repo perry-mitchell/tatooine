@@ -20,6 +20,17 @@ namespace TatooineTests {
 			}
 		}
 
+		[Test] public void testRandomNumbersSpread() {
+			int[] counts = new int[] { 0, 0, 0, 0, 0 };
+			for (int i = 0; i < 1000; i += 1) {
+				int random = Tatooine.Tools.Random.getRandomNumber(0, 4);
+				counts[random] = 1;
+			}
+			for (int j = 0; j < 5; j += 1) {
+				Assert.AreEqual(1, counts[j]);
+			}
+		}
+
 	}
 
 }

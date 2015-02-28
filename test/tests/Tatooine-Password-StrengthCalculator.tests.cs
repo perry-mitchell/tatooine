@@ -23,8 +23,8 @@ namespace TatooineTests {
 				"bottle54"
 			};
 			foreach (string password in weakPasswords) {
-				int strength = StrengthCalculator.calculateStrengthIndex(password);
-				Console.WriteLine(":: " + password + " => " + strength);
+				//int strength = StrengthCalculator.calculateStrengthIndex(password);
+				//Console.WriteLine(":: " + password + " => " + strength);
 
 				PasswordStrength ps = StrengthCalculator.calculateStrength(password);
 				Assert.AreEqual(PasswordStrength.WEAK, ps, "Expected 'WEAK' strength for password: " + password);
@@ -39,8 +39,8 @@ namespace TatooineTests {
 				"zD7.C95.vK"
 			};
 			foreach (string password in averagePasswords) {
-				int strength = StrengthCalculator.calculateStrengthIndex(password);
-				Console.WriteLine(":: " + password + " => " + strength);
+				//int strength = StrengthCalculator.calculateStrengthIndex(password);
+				//Console.WriteLine(":: " + password + " => " + strength);
 
 				PasswordStrength ps = StrengthCalculator.calculateStrength(password);
 				Assert.AreEqual(PasswordStrength.AVERAGE, ps, "Expected 'AVERAGE' strength for password: " + password);
@@ -56,8 +56,8 @@ namespace TatooineTests {
 				"correct horse battery staple"
 			};
 			foreach (string password in strongPasswords) {
-				int strength = StrengthCalculator.calculateStrengthIndex(password);
-				Console.WriteLine(":: " + password + " => " + strength);
+				//int strength = StrengthCalculator.calculateStrengthIndex(password);
+				//Console.WriteLine(":: " + password + " => " + strength);
 
 				PasswordStrength ps = StrengthCalculator.calculateStrength(password);
 				Assert.AreEqual(PasswordStrength.STRONG, ps, "Expected 'STRONG' strength for password: " + password);

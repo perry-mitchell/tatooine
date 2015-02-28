@@ -91,24 +91,51 @@ namespace Tatooine.Password {
 
 		protected List<PasswordCharset> charsets;
 		protected PasswordGeneratorOptions _options;
+		protected PasswordCharset _lastCharset;
 
 		private PasswordGenerator(PasswordGeneratorOptions options) {
 			_options = options;
 			charsets = options.getEnabledCharsets();
+			_lastCharset = null;
 		}
 
 		public static string generateNewPassword(PasswordGeneratorOptions options) {
 			PasswordGenerator generator = new PasswordGenerator(options);
 			string password = "";
 			for (int i = 0; i < generator.getOptions().getLength(); i += 1) {
-
+				PasswordCharset thisCharset = generator.getNextCharset();
+				int charPos = Tatooine.Tools.Random.getRandomNumber(0, thisCharset.getCharString().Length - 1);
+				password += thisCharset.getCharString()[charPos];
 			}
 			return password;
 		}
 
-		// protected PasswordCharset getNextCharset() {
-			
-		// }
+		protected PasswordCharset getNextCharset() {
+			// check for first round, return random if so
+			if (_lastCharset == null) {
+				int randomCIndex = Tatooine.Tools.Random.getRandomNumber(0, charsets.Count - 1);
+				_lastCharset = charsets[randomCIndex];
+				return _lastCharset;
+			}
+			// get total charsets length
+			int totalLength = 0;
+			foreach (PasswordCharset cSet in charsets) {
+				totalLength += cSet.getCharString().Length;
+			}
+			// search for the next
+			PasswordCharset nextCharset = _lastCharset;
+			while (nextCharset == _lastCharset) {
+				int randomPos = Tatooine.Tools.Random.getRandomNumber(0, totalLength);
+				int charSetIndex = -1;
+				do {
+					charSetIndex += 1;
+					randomPos -= charsets[charSetIndex].getCharString().Length;
+				} while (randomPos > 0);
+				nextCharset = charsets[charSetIndex];
+			}
+			_lastCharset = nextCharset;
+			return nextCharset;
+		}
 
 		protected PasswordGeneratorOptions getOptions() {
 			return _options;
