@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 
 namespace Tatooine.Encryption
 {
-    class AES
+    public class AES
     {
         public static byte[] AES_Encrypt(byte[] bytesToBeEncrypted, byte[] passwordBytes)
         {
