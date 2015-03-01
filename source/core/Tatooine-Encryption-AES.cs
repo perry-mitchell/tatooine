@@ -8,6 +8,7 @@ namespace Tatooine.Encryption
 {
     public class AES
     {
+
         public static byte[] AES_Encrypt(byte[] bytesToBeEncrypted, byte[] passwordBytes)
         {
             byte[] encryptedBytes = null;
@@ -152,5 +153,6 @@ namespace Tatooine.Encryption
             RNGCryptoServiceProvider.Create().GetBytes(ba);
             return ba;
         }
+
     }
 }
