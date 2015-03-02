@@ -30,6 +30,7 @@ namespace Tatooine.Encryption
                     AES.IV = key.GetBytes(AES.BlockSize / 8);
 
                     AES.Mode = CipherMode.CBC;
+                    AES.Padding = PaddingMode.PKCS7;
 
                     using (CryptoStream cs = new CryptoStream(ms, AES.CreateEncryptor(), CryptoStreamMode.Write))
                     {
@@ -63,6 +64,7 @@ namespace Tatooine.Encryption
                     AES.IV = key.GetBytes(AES.BlockSize / 8);
 
                     AES.Mode = CipherMode.CBC;
+                    AES.Padding = PaddingMode.PKCS7;
 
                     using (CryptoStream cs = new CryptoStream(ms, AES.CreateDecryptor(), CryptoStreamMode.Write))
                     {

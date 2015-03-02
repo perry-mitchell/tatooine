@@ -5,11 +5,15 @@ namespace TatooineDesktop
 	public partial class UserInputDialog
 	{
 		private global::Gtk.VBox vbox7;
-		private global::Gtk.Label messageLabel;
-		private global::Gtk.Entry textEntry;
-		private global::Gtk.Button buttonCancel;
-		private global::Gtk.Button buttonOk;
 		
+		private global::Gtk.Label messageLabel;
+		
+		private global::Gtk.Entry textEntry;
+		
+		private global::Gtk.Button buttonCancel;
+		
+		private global::Gtk.Button buttonOk;
+
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
