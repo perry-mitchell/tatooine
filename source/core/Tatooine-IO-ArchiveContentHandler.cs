@@ -21,7 +21,7 @@ namespace Tatooine.IO {
 
 		public static string encryptContent(string content, SecureString password) {
 			string enc;
-			using(SecureStringToStringMarshaler sm = new SecureStringToStringMarshaler(password)) {
+			using (SecureStringToStringMarshaler sm = new SecureStringToStringMarshaler(password)) {
 				byte[] passw = Encoding.UTF8.GetBytes(sm.String);
 				enc = AES.Encrypt(content, passw);
 			}

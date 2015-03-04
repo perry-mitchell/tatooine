@@ -16,7 +16,7 @@ namespace TatooineTests {
 		private SecureString passwordSecure;
 
 		[SetUp] public void init() {
-			passwordRaw = "this is a 53<uR3 pass.worD!";
+			passwordRaw = "awesome";//this is a 53<uR3 pass.worD!
 			passwordSecure = Tatooine.Tools.Encoding.stringToSecureString(passwordRaw);
 		}
 
